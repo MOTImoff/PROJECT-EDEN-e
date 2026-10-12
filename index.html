@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJECT EDEN:e</title>
+<style>
+:root {
+  --bg: #f3f8f8;
+  --ink: #315967;
+  --deep: #244650;
+  --line: #c5dadd;
+  --accent: #76aeb2;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: .06em;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: .12;
+  background: repeating-linear-gradient(
+    to bottom, transparent 0 3px, #315967 4px
+  );
+}
+header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: .16em;
+}
+header span:last-child { opacity: .65; }
+main {
+  width: min(100% - 36px, 900px);
+  margin: auto;
+}
+.hero {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 65px 0;
+  position: relative;
+}
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: .28em;
+  margin-bottom: 25px;
+  animation: rise 1s both;
+}
+.logo {
+  font-size: clamp(42px, 10vw, 90px);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -.06em;
+  margin: 0;
+  animation: rise 1.2s both;
+}
+.logo span { color: var(--accent); }
+.subtitle {
+  font-size: 10px;
+  letter-spacing: .3em;
+  margin-top: 22px;
+  animation: rise 1.5s both;
+}
+.orbit {
+  width: 170px;
+  height: 170px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  position: absolute;
+  opacity: .65;
+  animation: rotate 24s linear infinite;
+}
+.orbit::before, .orbit::after {
+  content: "";
+  position: absolute;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  inset: 15px -20px;
+}
+.orbit::after { inset: -20px 15px; }
+.section {
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+}
+.section-label {
+  font-size: 10px;
+  letter-spacing: .25em;
+  color: var(--accent);
+}
+h2 {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 12px 0 20px;
+}
+.intro {
+  background: var(--deep);
+  color: #f3f8f8;
+  padding: 26px;
+  line-height: 2;
+  font-size: 13px;
+}
+.nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.nav a {
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 20px 12px;
+  text-decoration: none;
+  font-size: 11px;
+  transition: background .3s, color .3s, transform .3s;
+}
+.nav a:hover {
+  background: var(--deep);
+  color: white;
+  transform: translateY(-3px);
+}
+.nav small {
+  display: block;
+  margin-top: 8px;
+  opacity: .65;
+  font-size: 9px;
+}
+.notice {
+  border: 1px solid var(--line);
+  padding: 16px;
+  font-size: 11px;
+  line-height: 2;
+}
+footer {
+  border-top: 1px solid var(--line);
+  padding: 25px 18px;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: .2em;
+  margin-top: 30px;
+}
+.fade { animation: rise .9s both; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+@media (max-width: 480px) {
+  .hero { min-height: 68vh; }
+  .orbit { width: 125px; height: 125px; }
+  .intro { padding: 20px; }
+  .nav { grid-template-columns: 1fr; }
+  .nav a { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <span>PROJECT EDEN:e</span>
+  <span>ARCHIVE SYSTEM / 001</span>
+</header>
+<main>
+  <section class="hero">
+    <div class="orbit"></div>
+    <div class="eyebrow">CLASSIFIED PROJECT // EDEN</div>
+    <h1 class="logo">EDEN<span>:e</span></h1>
+    <div class="subtitle">THE PARADISE EXPERIMENT</div>
+  </section>
+
+  <section class="section fade" id="about">
+    <div class="section-label">01 / INTRODUCTION</div>
+    <h2>ここは、楽園ではない。</h2>
+    <div class="intro">
+      PROJECT EDEN:e<br>
+      ある計画のもとに集められた、9人の被験者。<br>
+      彼らが何者で、何のために選ばれたのか。<br>
+      その答えは、まだ記録されていない。
+    </div>
+  </section>
+
+  <section class="section fade">
+    <div class="section-label">02 / DATABASE</div>
+    <h2>ARCHIVE</h2>
+    <div class="nav">
+      <a href="#about">PROJECT<small>計画概要</small></a>
+      <a href="#characters">CHARACTERS<small>人物記録</small></a>
+      <a href="#world">WORLD<small>世界・用語</small></a>
+    </div>
+  </section>
+
+  <section class="section fade" id="characters">
+    <div class="section-label">03 / PERSONNEL FILE</div>
+    <h2>CHARACTERS</h2>
+    <div class="notice">
+      N / I / II / III / IV / V / VI / VII / VIII<br>
+      PERSONNEL DATABASE — ACCESS RESTRICTED<br>
+      <small>キャラクター情報は順次公開予定。</small>
+    </div>
+  </section>
+
+  <section class="section fade" id="world">
+    <div class="section-label">04 / WORLD ARCHIVE</div>
+    <h2>WORLD</h2>
+    <div class="notice">
+      EDEN — LOCATION UNKNOWN<br>
+      研究記録および関連資料は、現在閲覧制限中。
+    </div>
+  </section>
+</main>
+<footer>PROJECT EDEN:e — ALL RECORDS RESERVED</footer>
+</body>
+</html>
