@@ -288,3 +288,514 @@ html { scroll-behavior: smooth; }
   font-size: 22px;
   color: #315967;
 }
+
+/* ==================================
+   PROJECT EDEN:e
+   CHARACTER ARCHIVE
+================================== */
+
+.character-page {
+  --bg: #101f24;
+  --panel: #172d33;
+  --teal: #65e5dc;
+  --teal-soft: #a8e8e2;
+  --text: #e1eeee;
+  --muted: #8caeaf;
+  --line: rgba(101, 229, 220, 0.55);
+
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN",
+    "Noto Serif JP", serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.character-page * {
+  box-sizing: border-box;
+}
+
+/* 見出し */
+
+.data-heading {
+  margin-bottom: 22px;
+}
+
+.data-label,
+.profile-heading,
+.change-caption {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-family: "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+
+.data-heading h1 {
+  margin: 12px 0 18px;
+  color: #f0fafa;
+  font-size: clamp(25px, 5vw, 34px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.data-heading h1 span {
+  color: var(--teal-soft);
+  font-size: 0.75em;
+}
+
+.glow-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--teal),
+    #ffffff,
+    var(--teal),
+    transparent
+  );
+  box-shadow: 0 0 5px var(--teal),
+              0 0 13px rgba(101, 229, 220, 0.45);
+}
+
+/* キャラクター表示エリア */
+
+.character-stage {
+  position: relative;
+  padding: 20px 14px 18px;
+  background:
+    radial-gradient(
+      ellipse at 52% 45%,
+      rgba(58, 126, 128, 0.2),
+      transparent 65%
+    ),
+    linear-gradient(145deg, #1a343a, #0e1b20 75%);
+  border: 1px solid rgba(101, 229, 220, 0.35);
+  box-shadow:
+    inset 0 0 25px rgba(101, 229, 220, 0.035),
+    0 0 12px rgba(101, 229, 220, 0.08);
+}
+
+.stage-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: var(--teal);
+  border-style: solid;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px var(--teal));
+  z-index: 2;
+}
+
+.corner-tl {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.corner-tr {
+  top: -1px;
+  right: -1px;
+  border-width: 1px 1px 0 0;
+}
+
+.corner-bl {
+  bottom: -1px;
+  left: -1px;
+  border-width: 0 0 1px 1px;
+}
+
+.corner-br {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+.stage-code {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--teal-soft);
+  font: 9px "Times New Roman", serif;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+}
+
+.stage-code span {
+  text-align: right;
+}
+
+/* セリフと立ち絵 */
+
+.character-visual {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  min-height: 350px;
+  margin-top: 10px;
+}
+
+.character-dialogue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding: 10px 0;
+  border-right: 1px solid var(--line);
+}
+
+.dialogue-label {
+  margin-bottom: 15px;
+  color: var(--teal);
+  font: 8px "Times New Roman", serif;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+}
+
+
+.character-dialogue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 0;
+  padding: 10px 0;
+  border-right: 1px solid var(--line);
+}
+
+.character-dialogue p {
+  margin: 0;
+  color: #edfafa;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN",
+    "Noto Serif JP", serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0.12em;
+
+  /* 縦書き設定 */
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+
+  /* 縦方向の高さを制限 */
+  height: 270px;
+  max-height: 270px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* セリフの登場アニメーション */
+
+@keyframes dialogue-in {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.character-dialogue p {
+  animation: dialogue-in 0.8s ease both;
+}
+
+.character-portrait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+  min-width: 0;
+}
+
+.character-portrait img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 0 10px rgba(101, 229, 220, 0.1));
+  animation: portrait-in 0.7s ease both;
+}
+
+@keyframes portrait-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.portrait-index {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  color: var(--muted);
+  font: 10px "Times New Roman", serif;
+  letter-spacing: 0.15em;
+}
+
+/* CHANGEボタン */
+
+.change-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.change-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--teal)
+  );
+  box-shadow: 0 0 5px rgba(101, 229, 220, 0.5);
+}
+
+.change-line:last-child {
+  transform: rotate(180deg);
+}
+
+.change-button {
+  padding: 10px 16px;
+  color: var(--teal-soft);
+  background: rgba(101, 229, 220, 0.04);
+  border: 1px solid var(--line);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.change-button:hover {
+  color: #ffffff;
+  background: rgba(101, 229, 220, 0.13);
+  box-shadow: 0 0 12px rgba(101, 229, 220, 0.25);
+}
+
+.change-symbol {
+  color: var(--teal);
+  padding: 0 4px;
+}
+
+.change-caption {
+  justify-content: center;
+  margin-top: 8px;
+  font-size: 8px;
+}
+
+/* プロフィール */
+
+.character-profile {
+  position: relative;
+  margin-top: 28px;
+  padding: 20px 18px 22px;
+  background: linear-gradient(150deg, #1a3036, #14262c);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid rgba(101, 229, 220, 0.25);
+}
+
+.profile-heading {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(101, 229, 220, 0.25);
+}
+
+.profile-number {
+  color: var(--teal);
+}
+
+.character-profile h2 {
+  margin: 22px 0 4px;
+  font-size: clamp(30px, 7vw, 42px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: #f0fafa;
+}
+
+.english-name {
+  margin: 0;
+  color: var(--teal-soft);
+  font: 12px "Times New Roman", serif;
+  letter-spacing: 0.3em;
+}
+
+.profile-divider {
+  width: 100%;
+  height: 1px;
+  margin: 20px 0;
+  background: linear-gradient(
+    90deg,
+    var(--teal),
+    rgba(101, 229, 220, 0.05)
+  );
+  box-shadow: 0 0 5px rgba(101, 229, 220, 0.25);
+}
+
+.profile-data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 28px;
+}
+
+.profile-data div {
+  min-width: 0;
+  padding: 10px 8px;
+  border-left: 1px solid var(--line);
+}
+
+.profile-data dt {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.profile-data dd {
+  margin: 0;
+  color: #e5f8f5;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.character-profile h3 {
+  margin: 0 0 12px;
+  padding-left: 10px;
+  border-left: 2px solid var(--teal);
+  color: var(--teal-soft);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+}
+
+.profile-description {
+  color: #d2e5e4;
+  font-size: 13px;
+  line-height: 2.1;
+  letter-spacing: 0.04em;
+}
+
+.keyword-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.keyword-list span {
+  padding: 5px 12px;
+  color: var(--teal-soft);
+  border: 1px solid rgba(101, 229, 220, 0.45);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+/* 前後のキャラクター */
+
+.character-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0;
+  padding: 12px 10px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.character-navigation button {
+  width: 42px;
+  height: 42px;
+  color: var(--teal);
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 25px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.character-navigation button:hover {
+  border-color: var(--line);
+  background: rgba(101, 229, 220, 0.08);
+  text-shadow: 0 0 8px var(--teal);
+}
+
+.character-navigation > span {
+  color: #f0fafa;
+  font-size: 25px;
+  letter-spacing: 0.12em;
+}
+
+.character-navigation small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* フッター */
+
+.character-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font: 9px "Times New Roman", serif;
+  letter-spacing: 0.12em;
+}
+
+.character-footer span {
+  text-align: right;
+}
+
+/* スマートフォン */
+
+@media (max-width: 480px) {
+  .character-page {
+    padding: 22px 12px 30px;
+  }
+
+  .character-stage {
+    padding: 16px 10px;
+  }
+
+  .character-visual {
+    grid-template-columns: 42px minmax(0, 1fr);
+    min-height: 300px;
+  }
+
+  .character-portrait {
+    height: 300px;
+  }
+
+  .character-dialogue p {
+    font-size: 12px;
+  }
+
+  .character-profile {
+    padding: 18px 13px;
+  }
+
+  .profile-data {
+    gap: 4px;
+  }
+
+  .profile-data div {
+    padding: 8px 5px;
+  }
+
+  .profile-data dd {
+    font-size: 12px;
+  }
+}
