@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHARACTER ARCHIVE | PROJECT EDEN:e</title>
+
+<style>
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #101f24;
+  --panel: #172d33;
+  --teal: #65e5dc;
+  --pale: #c6f5ef;
+  --text: #e6f1ef;
+  --muted: #8caeaf;
+}
+
+body {
+  margin: 0;
+  background: #f3f8f8;
+  color: var(--text);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN",
+    "Noto Serif JP", serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; }
+
+.page {
+  max-width: 760px;
+  margin: auto;
+  padding: 24px 16px 40px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #315967;
+  font-size: 12px;
+  letter-spacing: .12em;
+  border-bottom: 1px solid #8ab7b7;
+  padding-bottom: 5px;
+}
+
+.heading {
+  color: #315967;
+  margin-bottom: 18px;
+}
+
+.heading small {
+  font-family: "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: .2em;
+}
+
+.heading h1 {
+  margin: 10px 0 16px;
+  font-size: clamp(24px, 5vw, 34px);
+  font-weight: normal;
+  letter-spacing: .1em;
+}
+
+.glow-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg, transparent, #65e5dc, white, #65e5dc, transparent
+  );
+  box-shadow: 0 0 8px #65e5dc, 0 0 16px #3ba9a6;
+}
+
+.stage {
+  position: relative;
+  padding: 18px 12px 16px;
+  background:
+    radial-gradient(ellipse at center, #23474c 0%, transparent 72%),
+    linear-gradient(145deg, #1a343a, #0e1b20);
+  border: 1px solid #527f80;
+  box-shadow: 0 0 12px #65e5dc25, inset 0 0 24px #65e5dc0b;
+}
+
+.stage::before,
+.stage::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+
+.stage::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--teal);
+  border-left: 2px solid var(--teal);
+  filter: drop-shadow(0 0 4px var(--teal));
+}
+
+.stage::after {
+  right: -1px;
+  bottom: -1px;
+  border-right: 2px solid var(--teal);
+  border-bottom: 2px solid var(--teal);
+  filter: drop-shadow(0 0 4px var(--teal));
+}
+
+.stage-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font: 10px "Times New Roman", serif;
+  letter-spacing: .12em;
+}
+
+.visual {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  min-height: 360px;
+  margin-top: 12px;
+}
+
+.dialogue {
+  height: 290px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #65e5dc75;
+  overflow: hidden;
+}
+
+.dialogue p {
+  margin: 0;
+  height: 270px;
+  color: #effbf9;
+  font-size: 14px;
+  line-height: 2;
+  letter-spacing: .12em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  overflow-wrap: anywhere;
+  animation: slideIn .8s ease both;
+}
+
+.portrait {
+  position: relative;
+  height: 360px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transition: opacity .3s ease, transform .5s ease;
+  filter: drop-shadow(0 0 9px #65e5dc16);
+}
+
+.portrait.zoom img {
+  transform: scale(1.65);
+}
+
+.portrait-index {
+  position: absolute;
+  right: 4px;
+  bottom: 5px;
+  color: #8caeaf;
+  font: 10px "Times New Roman", serif;
+  letter-spacing: .15em;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.change-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.change-rule {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, #65e5dc);
+  box-shadow: 0 0 5px #65e5dc70;
+}
+
+.change-rule:last-child {
+  transform: rotate(180deg);
+}
+
+.change-button {
+  color: var(--pale);
+  background: #65e5dc0a;
+  border: 1px solid #65e5dc90;
+  padding: 10px 17px;
+  font-size: 12px;
+  letter-spacing: .2em;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.change-button:hover {
+  background: #65e5dc20;
+  box-shadow: 0 0 12px #65e5dc50;
+}
+
+.change-caption {
+  margin-top: 7px;
+  text-align: center;
+  color: var(--muted);
+  font: 9px "Times New Roman", serif;
+  letter-spacing: .16em;
+}
+
+.profile {
+  margin-top: 26px;
+  padding: 20px 18px;
+  color: var(--text);
+  background: linear-gradient(145deg, #1a3036, #14262c);
+  border-top: 1px solid #65e5dc80;
+  border-bottom: 1px solid #65e5dc50;
+}
+
+.profile-top {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #65e5dc40;
+  color: var(--muted);
+  font: 10px "Times New Roman", serif;
+  letter-spacing: .15em;
+}
+
+.profile h2 {
+  margin: 22px 0 4px;
+  font-size: clamp(30px, 7vw, 42px);
+  font-weight: normal;
+  letter-spacing: .12em;
+}
+
+.english {
+  color: var(--pale);
+  font: 12px "Times New Roman", serif;
+  letter-spacing: .3em;
+}
+
+.profile-rule {
+  height: 1px;
+  margin: 20px 0;
+  background: linear-gradient(90deg, #65e5dc, transparent);
+  box-shadow: 0 0 5px #65e5dc50;
+}
+
+.data {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.data div {
+  min-width: 0;
+  padding: 8px;
+  border-left: 1px solid #65e5dc75;
+}
+
+.data dt {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.data dd {
+  margin: 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.profile h3 {
+  margin: 0 0 12px;
+  padding-left: 10px;
+  border-left: 2px solid var(--teal);
+  color: var(--pale);
+  font-size: 15px;
+  font-weight: normal;
+  letter-spacing: .1em;
+}
+
+.description {
+  color: #d2e5e4;
+  font-size: 13px;
+  line-height: 2.1;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.keywords span {
+  padding: 5px 12px;
+  color: var(--pale);
+  border: 1px solid #65e5dc70;
+  font-size: 11px;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0;
+  padding: 10px;
+  border-top: 1px solid #8ab7b7;
+  border-bottom: 1px solid #8ab7b7;
+  color: #315967;
+}
+
+.navigation button {
+  width: 44px;
+  height: 42px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #315967;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  border-color: #65bdb8;
+  box-shadow: 0 0 8px #65e5dc55;
+}
+
+.current-number {
+  font-size: 25px;
+  letter-spacing: .12em;
+}
+
+.current-number small {
+  font-size: 12px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #66858b;
+  font: 9px "Times New Roman", serif;
+  letter-spacing: .12em;
+}
+
+@media (max-width: 480px) {
+  .page { padding: 20px 12px 30px; }
+  .visual { grid-template-columns: 38px minmax(0, 1fr); }
+  .portrait { height: 320px; }
+  .visual { min-height: 320px; }
+  .dialogue { height: 270px; }
+  .dialogue p { height: 250px; font-size: 12px; }
+  .profile { padding: 18px 13px; }
+  .data { gap: 4px; }
+  .data div { padding: 7px 5px; }
+  .data dd { font-size: 12px; }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <!-- 一覧ページへのリンク。必要ならURLを変更 -->
+  <a class="back-link" href="index.html#characters">
+    ← CHARACTER LIST
+  </a>
+
+  <header class="heading">
+    <small>SUBJECT ARCHIVE / <span id="headingNo">001</span></small>
+    <h1 id="dataTitle">No.01　D A T A</h1>
+    <div class="glow-line"></div>
+  </header>
+
+  <section class="stage">
+    <div class="stage-label">
+      <span>PROJECT EDEN:e</span>
+      <span id="stageNo">IDENTIFICATION No.001</span>
+    </div>
+
+    <div class="visual">
+      <div class="dialogue">
+        <p id="dialogueText">大切なもの、思い出のもの、全て私は大事にしますよ。</p>
+      </div>
+
+      <div class="portrait" id="portrait">
+        <img id="portraitImage"
+          src="images/Characters/theseus.png"
+          alt="キャラクター立ち絵">
+        <span class="portrait-index" id="portraitIndex">01 / 09</span>
+      </div>
+    </div>
+
+    <div class="change-wrap">
+      <div class="change-rule"></div>
+      <button class="change-button" id="changeButton" type="button">
+        ◇　CHANGE　◇
+      </button>
+      <div class="change-rule"></div>
+    </div>
+    <div class="change-caption">CHANGE VIEW / FULL ⇄ CLOSE-UP</div>
+  </section>
+
+  <section class="profile">
+    <div class="profile-top">
+      <span>CHARACTER PROFILE</span>
+      <span id="profileNo">001</span>
+    </div>
+
+    <h2 id="characterName">テセウス</h2>
+    <div class="english" id="englishName">THESEUS</div>
+    <div class="profile-rule"></div>
+
+    <dl class="data">
+      <div><dt>年齢</dt><dd id="age">3■</dd></div>
+      <div><dt>身長</dt><dd id="height">183cm</dd></div>
+      <div><dt>所属</dt><dd id="affiliation">UNIVERSE</dd></div>
+    </dl>
+
+    <h3>このキャラクターについて</h3>
+    <p class="description" id="description">
+      礼儀正しく、とても穏やかな男性。生き物を愛し、
+      医師免許を持つほど聡明。縫合や解剖を得意とし、
+      観葉植物を育てている。
+    </p>
+
+    <div class="keywords" id="keywords">
+      <span>医師</span><span>融合</span><span>縫合</span>
+    </div>
+  </section>
+
+  <nav class="navigation" aria-label="キャラクター切り替え">
+    <button id="prevButton" type="button" aria-label="前のキャラクター">←</button>
+    <span class="current-number"><small>No.</small> <span id="currentNo">01</span></span>
+    <button id="nextButton" type="button" aria-label="次のキャラクター">→</button>
+  </nav>
+
+  <footer class="footer">
+    <span>PROJECT EDEN:e</span>
+    <span>END OF SUBJECT DATA</span>
+  </footer>
+</main>
+
+<script>
+const characters = [
+  {
+    id: "N", name: "N", english: "SUBJECT N",
+    age: "不明", height: "不明", affiliation: "UNIVERSE",
+    quote: "私は、いったい誰なのだろう。",
+    image: "images/Characters/N.png",
+    description: "主人公。詳細プロフィールは設定に合わせて変更してください。",
+    keywords: ["存在", "記憶"]
+  },
+  {
+    id: "01", name: "テセウス", english: "THESEUS",
+    age: "3■", height: "183cm", affiliation: "UNIVERSE",
+    quote: "大切なもの、思い出のもの、全て私は大事にしますよ。",
+    image: "images/Characters/theseus.png",
+    description: "礼儀正しく、とても穏やかな男性。生き物を愛し、医師免許を持つほど聡明。縫合や解剖を得意とし、観葉植物を育てている。",
+    keywords: ["医師", "融合", "縫合"]
+  },
+  {
+    id: "02", name: "メアリー", english: "MARY",
+    age: "2■", height: "159cm", affiliation: "UNIVERSE",
+    quote: "あたし、ちょっとは頭良いからさ！任せてよ！",
+    image: "images/Characte
