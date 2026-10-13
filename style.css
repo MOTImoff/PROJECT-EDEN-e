@@ -887,4 +887,8 @@ html { scroll-behavior: smooth; }
     border-bottom: none;
   }
 }
-
+/* スマホメニューの表示 */
+.site-nav.is-open {
+  display: flex !important;
+  flex-direction: column;
+}
