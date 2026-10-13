@@ -404,6 +404,147 @@ button { font-family: inherit; }
     scroll-behavior: auto !important;
   }
 }
+  /* ===== 表示調整・ふわっと演出 ===== */
+
+/* 立ち絵の上にセリフを重ねる */
+.visual {
+position: relative;
+display: block;
+min-height: 390px;
+}
+
+.portrait {
+width: 100%;
+height: 390px;
+}
+
+.dialogue {
+position: absolute;
+z-index: 2;
+left: 8px;
+top: 10px;
+bottom: 10px;
+width: 34%;
+min-height: 0;
+overflow: visible;
+border-right: 1px solid #65e5dc75;
+background: linear-gradient(
+90deg,
+rgba(14, 27, 32, .8),
+rgba(14, 27, 32, .15),
+transparent
+);
+pointer-events: none;
+}
+
+.dialogue p {
+max-height: none;
+max-width: 100%;
+padding: 8px 5px;
+font-size: 16px;
+line-height: 1.9;
+overflow: visible;
+overflow-wrap: anywhere;
+text-shadow: 0 0 8px #0e1b20;
+animation: none;
+}
+
+/* 立ち絵をなめらかに */
+.portrait img {
+opacity: 1;
+transition:
+opacity .7s ease,
+filter .7s ease;
+}
+
+.portrait img.switching {
+opacity: 0;
+filter: blur(5px);
+}
+
+/* プロフィールもふわっと */
+.profile {
+transition:
+opacity .5s ease,
+transform .5s ease,
+filter .5s ease;
+}
+
+.profile.is-changing {
+opacity: 0;
+transform: translateY(10px);
+filter: blur(3px);
+}
+
+/* 見出し・番号・セリフなどの切り替え */
+.heading,
+.stage-label,
+.dialogue,
+.portrait-index,
+.change-caption,
+.profile-top,
+.profile h2,
+.profile .english,
+.profile-rule,
+.profile .data,
+.profile h3,
+.profile .description,
+.profile .keywords,
+.navigation {
+transition:
+opacity .45s ease,
+transform .45s ease,
+filter .45s ease;
+}
+
+.is-fading {
+opacity: 0;
+transform: translateY(6px);
+filter: blur(2px);
+}
+
+/* スマホ */
+@media (max-width: 480px) {
+.visual {
+min-height: 330px;
+}
+
+.portrait {
+height: 330px;
+}
+
+.dialogue {
+left: 4px;
+width: 38%;
+}
+
+.dialogue p {
+font-size: 14px;
+line-height: 1.8;
+letter-spacing: .08em;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+.portrait img,
+.profile,
+.heading,
+.stage-label,
+.dialogue,
+.portrait-index,
+.change-caption,
+.profile-top,
+.profile h2,
+.profile .english,
+.profile-rule,
+.profile .data,
+.profile h3,
+.profile .description,
+.profile .keywords,
+.navigation {
+transition: none !important;
+}
+}
 </style>
 </head>
   
@@ -633,34 +774,107 @@ let currentIndex = 0;
 let isCloseUp = false;
 
 const $ = (id) => document.getElementById(id);
+  const fadeTargets = [
+“heading”,
+“stageLabel”,
+“dialogueText”,
+“portraitIndex”,
+“profile”,
+“navigation”
+];
 
-function renderCharacter(index) {
-  currentIndex = (index + characters.length) % characters.length;
+function fadeOutTargets() {
+fadeTargets.forEach((id) => {
+const element = id === “heading”
+? document.querySelector(”.heading”)
+: id === “stageLabel”
+? document.querySelector(”.stage-label”)
+: id === “profile”
+? document.querySelector(”.profile”)
+: id === “navigation”
+? document.querySelector(”.navigation”)
+: $(id);
 
-  const character = characters[currentIndex];
+if (element) element.classList.add("is-fading");
 
-  $("headingNo").textContent = character.id;
-  $("dataTitle").textContent = "No." + character.id + "　D A T A";
-  $("stageNo").textContent = "IDENTIFICATION No." + character.id;
-  $("dialogueText").textContent = character.quote;
+});
+}
 
-  $("characterName").textContent = character.name;
-  $("englishName").textContent = character.english;
-  $("age").textContent = character.age;
-  $("height").textContent = character.height;
-  $("affiliation").textContent = character.affiliation;
-  $("description").textContent = character.description;
+function fadeInTargets() {
+fadeTargets.forEach((id) => {
+const element = id === “heading”
+? document.querySelector(”.heading”)
+: id === “stageLabel”
+? document.querySelector(”.stage-label”)
+: id === “profile”
+? document.querySelector(”.profile”)
+: id === “navigation”
+? document.querySelector(”.navigation”)
+: $(id);
 
-  $("profileNo").textContent = character.id;
-  $("currentNo").textContent = character.id;
-  $("portraitIndex").textContent = character.id + " / 09";
+if (element) element.classList.remove("is-fading");
 
-  $("keywords").replaceChildren(
-    ...character.keywords.map((word) => {
-      const tag = document.createElement("span");
-      tag.textContent = word;
-      return tag;
-    })
+});
+}
+
+function wait(ms) {
+return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+let switching = false;
+  async function renderCharacter(index) {
+if (switching) return;
+switching = true;
+
+fadeOutTargets();
+$(“portraitImage”).classList.add(“switching”);
+
+await wait(280);
+
+currentIndex = (index + characters.length) % characters.length;
+const character = characters[currentIndex];
+
+$(“headingNo”).textContent = character.id;
+$(“dataTitle”).textContent = “No.” + character.id + “　D A T A”;
+$(“stageNo”).textContent = “IDENTIFICATION No.” + character.id;
+$(“dialogueText”).textContent = character.quote;
+
+$(“characterName”).textContent = character.name;
+$(“englishName”).textContent = character.english;
+$(“age”).textContent = character.age;
+$(“height”).textContent = character.height;
+$(“affiliation”).textContent = character.affiliation;
+$(“description”).textContent = character.description;
+
+$(“profileNo”).textContent = character.id;
+$(“currentNo”).textContent = character.id;
+$(“portraitIndex”).textContent = character.id + “ / 09”;
+
+$(“keywords”).replaceChildren(
+…character.keywords.map((word) => {
+const tag = document.createElement(“span”);
+tag.textContent = word;
+return tag;
+})
+);
+
+isCloseUp = false;
+$(“changeButton”).setAttribute(“aria-pressed”, “false”);
+updatePortrait();
+
+const url = new URL(window.location.href);
+url.searchParams.set(“ch”, character.id);
+window.history.replaceState({}, “”, url);
+
+await wait(80);
+
+$(“portraitImage”).classList.remove(“switching”);
+fadeInTargets();
+
+await wait(500);
+switching = false;
+}
+
   );
 
   isCloseUp = false;
