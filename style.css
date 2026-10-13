@@ -841,3 +841,50 @@ html { scroll-behavior: smooth; }
   visibility: visible !important;
   transform: none !important;
 }
+
+/* =================================
+   スマホメニュー：開閉を修正
+================================= */
+
+@media (max-width: 768px) {
+  .site-header {
+    position: relative;
+    z-index: 1000;
+  }
+
+  .menu-toggle {
+    display: flex;
+    position: relative;
+    z-index: 1002;
+    cursor: pointer;
+  }
+
+  .site-nav.is-open {
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    width: 100%;
+    padding: 16px 20px;
+    background: #17373f;
+    border-top: 1px solid rgba(101, 229, 220, 0.35);
+    box-sizing: border-box;
+  }
+
+  .site-nav.is-open a {
+    display: block;
+    padding: 14px 8px;
+    color: #e1eeee;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(101, 229, 220, 0.2);
+  }
+
+  .site-nav.is-open a:last-child {
+    border-bottom: none;
+  }
+}
+
