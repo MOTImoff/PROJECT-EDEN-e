@@ -10,28 +10,27 @@
 * { box-sizing: border-box; }
 
 :root {
-  --bg: #101f24;
-  --panel: #172d33;
   --teal: #65e5dc;
   --pale: #c6f5ef;
-  --text: #e6f1ef;
-  --muted: #8caeaf;
+  --ink: #315967;
+  --muted: #66858b;
 }
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   background: #f3f8f8;
-  color: var(--text);
+  color: #e6f1ef;
   font-family: "Yu Mincho", "Hiragino Mincho ProN",
     "Noto Serif JP", serif;
 }
 
 a { color: inherit; text-decoration: none; }
-
 button { font-family: inherit; }
 
 .page {
-  max-width: 760px;
+  width: min(100%, 760px);
   margin: auto;
   padding: 24px 16px 40px;
 }
@@ -39,7 +38,7 @@ button { font-family: inherit; }
 .back-link {
   display: inline-block;
   margin-bottom: 24px;
-  color: #315967;
+  color: var(--ink);
   font-size: 12px;
   letter-spacing: .12em;
   border-bottom: 1px solid #8ab7b7;
@@ -47,13 +46,12 @@ button { font-family: inherit; }
 }
 
 .heading {
-  color: #315967;
+  color: var(--ink);
   margin-bottom: 18px;
 }
 
 .heading small {
-  font-family: "Times New Roman", serif;
-  font-size: 10px;
+  font: 10px "Times New Roman", serif;
   letter-spacing: .2em;
 }
 
@@ -67,11 +65,12 @@ button { font-family: inherit; }
 .glow-line {
   height: 1px;
   background: linear-gradient(
-    90deg, transparent, #65e5dc, white, #65e5dc, transparent
+    90deg, transparent, var(--teal), white, var(--teal), transparent
   );
-  box-shadow: 0 0 8px #65e5dc, 0 0 16px #3ba9a6;
+  box-shadow: 0 0 8px var(--teal), 0 0 16px #3ba9a6;
 }
 
+/* キャラクターの暗いステージ */
 .stage {
   position: relative;
   padding: 18px 12px 16px;
@@ -79,7 +78,8 @@ button { font-family: inherit; }
     radial-gradient(ellipse at center, #23474c 0%, transparent 72%),
     linear-gradient(145deg, #1a343a, #0e1b20);
   border: 1px solid #527f80;
-  box-shadow: 0 0 12px #65e5dc25, inset 0 0 24px #65e5dc0b;
+  box-shadow: 0 0 12px #65e5dc25,
+    inset 0 0 24px #65e5dc0b;
 }
 
 .stage::before,
@@ -111,21 +111,22 @@ button { font-family: inherit; }
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  color: var(--muted);
+  color: #8caeaf;
   font: 10px "Times New Roman", serif;
   letter-spacing: .12em;
 }
 
+/* 縦書きセリフ＋立ち絵 */
 .visual {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
+  grid-template-columns: 56px minmax(0, 1fr);
   align-items: center;
-  min-height: 360px;
+  min-height: 390px;
   margin-top: 12px;
 }
 
 .dialogue {
-  height: 290px;
+  min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,20 +136,20 @@ button { font-family: inherit; }
 
 .dialogue p {
   margin: 0;
-  height: 270px;
+  max-height: 310px;
   color: #effbf9;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 2;
   letter-spacing: .12em;
   writing-mode: vertical-rl;
   text-orientation: upright;
   overflow-wrap: anywhere;
-  animation: slideIn .8s ease both;
+  animation: slideIn .45s ease both;
 }
 
 .portrait {
   position: relative;
-  height: 360px;
+  height: 390px;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -161,13 +162,11 @@ button { font-family: inherit; }
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  transition: opacity .3s ease, transform .5s ease;
+  transition: opacity .25s ease;
   filter: drop-shadow(0 0 9px #65e5dc16);
 }
 
-.portrait.zoom img {
-  transform: scale(1.65);
-}
+.portrait img.switching { opacity: .15; }
 
 .portrait-index {
   position: absolute;
@@ -179,10 +178,11 @@ button { font-family: inherit; }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(-12px); }
+  from { opacity: 0; transform: translateX(-8px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
+/* CHANGEボタン */
 .change-wrap {
   display: flex;
   align-items: center;
@@ -193,13 +193,11 @@ button { font-family: inherit; }
 .change-rule {
   height: 1px;
   flex: 1;
-  background: linear-gradient(90deg, transparent, #65e5dc);
+  background: linear-gradient(90deg, transparent, var(--teal));
   box-shadow: 0 0 5px #65e5dc70;
 }
 
-.change-rule:last-child {
-  transform: rotate(180deg);
-}
+.change-rule:last-child { transform: rotate(180deg); }
 
 .change-button {
   color: var(--pale);
@@ -212,33 +210,42 @@ button { font-family: inherit; }
   transition: .25s;
 }
 
-.change-button:hover {
+.change-button:hover,
+.change-button:focus-visible {
   background: #65e5dc20;
   box-shadow: 0 0 12px #65e5dc50;
+  outline: none;
 }
 
 .change-caption {
   margin-top: 7px;
   text-align: center;
-  color: var(--muted);
+  color: #8caeaf;
   font: 9px "Times New Roman", serif;
   letter-spacing: .16em;
 }
 
+/* 白の半透明プロフィール */
 .profile {
   margin-top: 26px;
-  padding: 20px 18px;
-  color: var(--text);
-  background: linear-gradient(145deg, #1a3036, #14262c);
-  border-top: 1px solid #65e5dc80;
-  border-bottom: 1px solid #65e5dc50;
+  padding: 24px 20px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, .86);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(70, 205, 196, .9);
+  border-bottom: 1px solid rgba(70, 205, 196, .55);
+  box-shadow:
+    0 -2px 12px rgba(101, 229, 220, .12),
+    0 4px 18px rgba(49, 89, 103, .06);
 }
 
 .profile-top {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #65e5dc40;
+  border-bottom: 1px solid rgba(70, 155, 157, .4);
   color: var(--muted);
   font: 10px "Times New Roman", serif;
   letter-spacing: .15em;
@@ -246,35 +253,38 @@ button { font-family: inherit; }
 
 .profile h2 {
   margin: 22px 0 4px;
+  color: #244650;
   font-size: clamp(30px, 7vw, 42px);
   font-weight: normal;
   letter-spacing: .12em;
+  overflow-wrap: anywhere;
 }
 
 .english {
-  color: var(--pale);
+  color: #4a8588;
   font: 12px "Times New Roman", serif;
   letter-spacing: .3em;
+  overflow-wrap: anywhere;
 }
 
 .profile-rule {
   height: 1px;
   margin: 20px 0;
-  background: linear-gradient(90deg, #65e5dc, transparent);
-  box-shadow: 0 0 5px #65e5dc50;
+  background: linear-gradient(90deg, #65cfc8, rgba(101, 207, 200, .05));
+  box-shadow: 0 0 5px rgba(101, 207, 200, .3);
 }
 
 .data {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 28px;
+  margin: 0 0 28px;
 }
 
 .data div {
   min-width: 0;
   padding: 8px;
-  border-left: 1px solid #65e5dc75;
+  border-left: 1px solid rgba(70, 155, 157, .65);
 }
 
 .data dt {
@@ -285,6 +295,7 @@ button { font-family: inherit; }
 
 .data dd {
   margin: 0;
+  color: #244650;
   font-size: 13px;
   overflow-wrap: anywhere;
 }
@@ -292,17 +303,19 @@ button { font-family: inherit; }
 .profile h3 {
   margin: 0 0 12px;
   padding-left: 10px;
-  border-left: 2px solid var(--teal);
-  color: var(--pale);
+  border-left: 2px solid #55bdb7;
+  color: #315967;
   font-size: 15px;
   font-weight: normal;
   letter-spacing: .1em;
 }
 
 .description {
-  color: #d2e5e4;
+  margin: 0;
+  color: #405e65;
   font-size: 13px;
   line-height: 2.1;
+  white-space: pre-line;
 }
 
 .keywords {
@@ -314,11 +327,13 @@ button { font-family: inherit; }
 
 .keywords span {
   padding: 5px 12px;
-  color: var(--pale);
-  border: 1px solid #65e5dc70;
+  color: #397a7b;
+  background: rgba(101, 229, 220, .06);
+  border: 1px solid rgba(70, 155, 157, .6);
   font-size: 11px;
 }
 
+/* 前後のキャラクターへ */
 .navigation {
   display: flex;
   align-items: center;
@@ -327,7 +342,7 @@ button { font-family: inherit; }
   padding: 10px;
   border-top: 1px solid #8ab7b7;
   border-bottom: 1px solid #8ab7b7;
-  color: #315967;
+  color: var(--ink);
 }
 
 .navigation button {
@@ -335,14 +350,16 @@ button { font-family: inherit; }
   height: 42px;
   background: transparent;
   border: 1px solid transparent;
-  color: #315967;
+  color: var(--ink);
   font-size: 25px;
   cursor: pointer;
 }
 
-.navigation button:hover {
+.navigation button:hover,
+.navigation button:focus-visible {
   border-color: #65bdb8;
   box-shadow: 0 0 8px #65e5dc55;
+  outline: none;
 }
 
 .current-number {
@@ -350,9 +367,7 @@ button { font-family: inherit; }
   letter-spacing: .12em;
 }
 
-.current-number small {
-  font-size: 12px;
-}
+.current-number small { font-size: 12px; }
 
 .footer {
   display: flex;
@@ -363,17 +378,31 @@ button { font-family: inherit; }
   letter-spacing: .12em;
 }
 
+/* スマートフォン */
 @media (max-width: 480px) {
   .page { padding: 20px 12px 30px; }
-  .visual { grid-template-columns: 38px minmax(0, 1fr); }
-  .portrait { height: 320px; }
-  .visual { min-height: 320px; }
-  .dialogue { height: 270px; }
-  .dialogue p { height: 250px; font-size: 12px; }
-  .profile { padding: 18px 13px; }
+
+  .visual {
+    grid-template-columns: 42px minmax(0, 1fr);
+    min-height: 330px;
+  }
+
+  .portrait { height: 330px; }
+  .dialogue { min-height: 280px; }
+  .dialogue p { max-height: 280px; font-size: 16px; }
+  .profile { padding: 20px 13px; }
   .data { gap: 4px; }
   .data div { padding: 7px 5px; }
   .data dd { font-size: 12px; }
+  .stage-label { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 </style>
 </head>
@@ -381,106 +410,304 @@ button { font-family: inherit; }
 <body>
 <main class="page">
 
-  <!-- 一覧ページへのリンク。必要ならURLを変更 -->
   <a class="back-link" href="index.html#characters">
     ← CHARACTER LIST
   </a>
 
   <header class="heading">
-    <small>SUBJECT ARCHIVE / <span id="headingNo">001</span></small>
-    <h1 id="dataTitle">No.01　D A T A</h1>
+    <small>SUBJECT ARCHIVE / <span id="headingNo">N</span></small>
+    <h1 id="dataTitle">No.N　D A T A</h1>
     <div class="glow-line"></div>
   </header>
 
+  <!-- キャラクター表示ステージ -->
   <section class="stage">
     <div class="stage-label">
       <span>PROJECT EDEN:e</span>
-      <span id="stageNo">IDENTIFICATION No.001</span>
+      <span id="stageNo">IDENTIFICATION No.N</span>
     </div>
 
     <div class="visual">
       <div class="dialogue">
-        <p id="dialogueText">大切なもの、思い出のもの、全て私は大事にしますよ。</p>
+        <p id="dialogueText">＿＿俺が何者かは、今はどうだっていいんだ。</p>
       </div>
 
       <div class="portrait" id="portrait">
-        <img id="portraitImage"
-          src="images/Characters/theseus.png"
-          alt="キャラクター立ち絵">
-        <span class="portrait-index" id="portraitIndex">01 / 09</span>
+        <img
+          id="portraitImage"
+          src="images/Characters/N.png"
+          alt="スワンの全身立ち絵"
+        >
+        <span class="portrait-index" id="portraitIndex">N / 09</span>
       </div>
     </div>
 
     <div class="change-wrap">
       <div class="change-rule"></div>
-      <button class="change-button" id="changeButton" type="button">
+      <button
+        class="change-button"
+        id="changeButton"
+        type="button"
+        aria-pressed="false"
+      >
         ◇　CHANGE　◇
       </button>
       <div class="change-rule"></div>
     </div>
-    <div class="change-caption">CHANGE VIEW / FULL ⇄ CLOSE-UP</div>
+
+    <div class="change-caption">
+      CHANGE VIEW / FULL ⇄ CLOSE-UP
+    </div>
   </section>
 
+  <!-- プロフィール -->
   <section class="profile">
     <div class="profile-top">
       <span>CHARACTER PROFILE</span>
-      <span id="profileNo">001</span>
+      <span id="profileNo">N</span>
     </div>
 
-    <h2 id="characterName">テセウス</h2>
-    <div class="english" id="englishName">THESEUS</div>
+    <h2 id="characterName">スワン</h2>
+    <div class="english" id="englishName">Swan</div>
     <div class="profile-rule"></div>
 
     <dl class="data">
-      <div><dt>年齢</dt><dd id="age">3■</dd></div>
-      <div><dt>身長</dt><dd id="height">183cm</dd></div>
-      <div><dt>所属</dt><dd id="affiliation">UNIVERSE</dd></div>
+      <div>
+        <dt>年齢</dt>
+        <dd id="age">2■</dd>
+      </div>
+      <div>
+        <dt>身長</dt>
+        <dd id="height">178cm</dd>
+      </div>
+      <div>
+        <dt>所属</dt>
+        <dd id="affiliation">universe</dd>
+      </div>
     </dl>
 
     <h3>このキャラクターについて</h3>
     <p class="description" id="description">
-      礼儀正しく、とても穏やかな男性。生き物を愛し、
-      医師免許を持つほど聡明。縫合や解剖を得意とし、
-      観葉植物を育てている。
+      選定官。頼りない。
     </p>
 
     <div class="keywords" id="keywords">
-      <span>医師</span><span>融合</span><span>縫合</span>
+      <span>選定官</span>
+      <span>記憶喪失</span>
     </div>
   </section>
 
+  <!-- 前後のキャラクターへ -->
   <nav class="navigation" aria-label="キャラクター切り替え">
-    <button id="prevButton" type="button" aria-label="前のキャラクター">←</button>
-    <span class="current-number"><small>No.</small> <span id="currentNo">01</span></span>
-    <button id="nextButton" type="button" aria-label="次のキャラクター">→</button>
+    <button
+      id="prevButton"
+      type="button"
+      aria-label="前のキャラクター"
+    >←</button>
+
+    <span class="current-number">
+      <small>No.</small>
+      <span id="currentNo">N</span>
+    </span>
+
+    <button
+      id="nextButton"
+      type="button"
+      aria-label="次のキャラクター"
+    >→</button>
   </nav>
 
   <footer class="footer">
     <span>PROJECT EDEN:e</span>
     <span>END OF SUBJECT DATA</span>
   </footer>
-</main>
 
 <script>
 const characters = [
   {
-    id: "N", name: "N", english: "SUBJECT N",
-    age: "不明", height: "不明", affiliation: "UNIVERSE",
-    quote: "私は、いったい誰なのだろう。",
-    image: "images/Characters/N.png",
-    description: "主人公。詳細プロフィールは設定に合わせて変更してください。",
-    keywords: ["存在", "記憶"]
+    id: "N",
+    name: "スワン",
+    english: "Swan",
+    age: "2■",
+    height: "178cm",
+    affiliation: "universe",
+    quote: "＿＿俺が何者かは、今はどうだっていいんだ。",
+    description: "選定官。頼りない。",
+    keywords: ["選定官", "記憶喪失"]
   },
   {
-    id: "01", name: "テセウス", english: "THESEUS",
-    age: "3■", height: "183cm", affiliation: "UNIVERSE",
-    quote: "大切なもの、思い出のもの、全て私は大事にしますよ。",
-    image: "images/Characters/theseus.png",
-    description: "礼儀正しく、とても穏やかな男性。生き物を愛し、医師免許を持つほど聡明。縫合や解剖を得意とし、観葉植物を育てている。",
+    id: "01",
+    name: "テセウス",
+    english: "Theseus",
+    age: "3■",
+    height: "183cm",
+    affiliation: "universe",
+    quote: "＿＿大切なもの、思い出のもの、全て私は大事にしますよ。",
+    description: "丁寧な喋り方をする非常に温和な男性。滅多なことでは動じず、人間を含めた生物を愛する様子が確認されている。「医者」の免許を持っており、頭脳も悪くないようだ。縫合と解剖が得意で、よく観葉植物を育てている。",
     keywords: ["医師", "融合", "縫合"]
   },
   {
-    id: "02", name: "メアリー", english: "MARY",
-    age: "2■", height: "159cm", affiliation: "UNIVERSE",
+    id: "02",
+    name: "メアリー",
+    english: "Mary",
+    age: "2■",
+    height: "159cm",
+    affiliation: "universe",
     quote: "あたし、ちょっとは頭良いからさ！任せてよ！",
-    image: "images/Characte
+    description: "世話が好きな、元気に溢れた女性。慌ただしい表情変化に潜む正体は、「今世紀最大の天才」。その頭脳は全地区の人間が渇望する様子だが＿＿現在は科学に触れることをやめているようだ。子供にとびきり優しい。",
+    keywords: ["科学者", "天才", "■■■■"]
+  },
+  {
+    id: "03",
+    name: "ミルグラム",
+    english: "Milgram",
+    age: "2■",
+    height: "168cm",
+    affiliation: "universe",
+    quote: "上官の命令が絶対だ。それが揺らぐことはない。",
+    description: "命令を遵守する、非常に従順な女性。その内面は正義に燃えており、弱きを助け悪を挫くことを目的としている。正義が関わると少々乱暴で融通のきかない場面があるが、相手が女性であれば優しく丁寧に接する場面は何度も目撃されている。",
+    keywords: ["正義", "従順"]
+  },
+  {
+    id: "04",
+    name: "イカロス",
+    english: "Icarus",
+    age: "28",
+    height: "187cm",
+    affiliation: "universe",
+    quote: "ン。ま、悩んでたらいつでも俺に相談していいぜ？",
+    description: "軽い雰囲気を持つ、非常に柔軟な男性。人を笑わすのが好きなのか、冗談を言う様子がよく観測されるが…成功率は高くないようだ。暗い話や雰囲気が嫌いであることと、隠れた髪の下はひどい火傷があることが判明している。",
+    keywords: ["「天使」", "墜落"]
+  },
+  {
+    id: "05",
+    name: "バベル",
+    english: "Babel",
+    age: "■■",
+    height: "165cm",
+    affiliation: "universe",
+    quote: "…わたくし、夜と月は好きです。…とっても、美しくって",
+    description: "顔にヴェールを纏う、ミステリアスな女性。話すことが苦手なのか、はたまた別の理由かは不明だが口数は少ない。「世界一の美女」の称号を有しているが、その所以は所作や声を見るだけでも頷けるだろう。世間に疎い様子もまた、魅力の一つだ。",
+    keywords: ["美貌", "身元不明"]
+  },
+  {
+    id: "06",
+    name: "エコーチェンバー",
+    english: "Echochamber",
+    age: "■■",
+    height: "197cm",
+    affiliation: "universe",
+    quote: "繁殖と発展はこの世界に不要だ。",
+    description: "正体不明の宗教に身を委ねている堅苦しい男性。元神父との情報があるが、宗教と彼自身のデータが存在しないため真偽は不明。思想は「■■(解読不能)教」に染められており、それに激しく反する場合は命令を受け入れない様子だ。しかし、非常に屈強な肉体をしている。",
+    keywords: ["宗教家", "楽園"]
+  },
+  {
+    id: "07",
+    name: "スタンフォード",
+    english: "Stanford",
+    age: "■■",
+    height: "179cm",
+    affiliation: "universe",
+    quote: "もぉなんでもいいからさっ、さっさと選定してよ〜。",
+    description: "面倒を嫌う自由な男性。自分を「看守」と名乗る様子が複数目撃されている。いたずらが得意なようだ。頻繁に空を見て独り言を喋っていることと、他者を攻撃する際に目が輝くのには見ないふりしておくことを推奨する。",
+    keywords: ["看守", "囚人"]
+  },
+  {
+    id: "08",
+    name: "メメント",
+    english: "Memento",
+    age: "2■",
+    height: "150cm",
+    affiliation: "universe",
+    quote: "…わかんない。忘れちゃった。",
+    description: "非常に忘れっぽい女性。体のあちこちに油性のペンでメモしている所を見るに、忘れることは不便な様子。小さな体のわりに戦闘能力が高く、反抗的でもないが…彼女に何かを覚えていてもらうことは諦めた方が良いだろう。",
+    keywords: ["忘却", "”特産物”", "■■■"]
+  }
+];
+
+let currentIndex = 0;
+let isCloseUp = false;
+
+const $ = (id) => document.getElementById(id);
+
+function renderCharacter(index) {
+  currentIndex = (index + characters.length) % characters.length;
+
+  const character = characters[currentIndex];
+
+  $("headingNo").textContent = character.id;
+  $("dataTitle").textContent = "No." + character.id + "　D A T A";
+  $("stageNo").textContent = "IDENTIFICATION No." + character.id;
+  $("dialogueText").textContent = character.quote;
+
+  $("characterName").textContent = character.name;
+  $("englishName").textContent = character.english;
+  $("age").textContent = character.age;
+  $("height").textContent = character.height;
+  $("affiliation").textContent = character.affiliation;
+  $("description").textContent = character.description;
+
+  $("profileNo").textContent = character.id;
+  $("currentNo").textContent = character.id;
+  $("portraitIndex").textContent = character.id + " / 09";
+
+  $("keywords").replaceChildren(
+    ...character.keywords.map((word) => {
+      const tag = document.createElement("span");
+      tag.textContent = word;
+      return tag;
+    })
+  );
+
+  isCloseUp = false;
+  $("changeButton").setAttribute("aria-pressed", "false");
+  updatePortrait();
+
+  // URLにも現在のキャラクターを反映
+  const url = new URL(window.location.href);
+  url.searchParams.set("ch", character.id);
+  window.history.replaceState({}, "", url);
+}
+
+function updatePortrait() {
+  const character = characters[currentIndex];
+  const image = $("portraitImage");
+
+  const fileName = character.id + (isCloseUp ? "up" : "") + ".png";
+  image.src = "images/Characters/" + fileName;
+  image.alt = character.name + (isCloseUp ? "のアップ画像" : "の全身立ち絵");
+
+  $("changeButton").setAttribute("aria-pressed", String(isCloseUp));
+  $("changeButton").textContent = isCloseUp
+    ? "◇　FULL BODY　◇"
+    : "◇　CHANGE　◇";
+}
+
+// 前のキャラクター・次のキャラクター
+$("prevButton").addEventListener("click", () => {
+  renderCharacter(currentIndex - 1);
+});
+
+$("nextButton").addEventListener("click", () => {
+  renderCharacter(currentIndex + 1);
+});
+
+// 全身画像とアップ画像を切り替え
+$("changeButton").addEventListener("click", () => {
+  isCloseUp = !isCloseUp;
+  updatePortrait();
+});
+
+// URLに ?ch=02 などがあれば、そのキャラクターを表示
+const params = new URLSearchParams(window.location.search);
+const requestedId = params.get("ch");
+const requestedIndex = characters.findIndex(
+  (character) => character.id === requestedId
+);
+
+renderCharacter(requestedIndex >= 0 ? requestedIndex : 0);
+</script>
+
+</body>
+</html>
+
