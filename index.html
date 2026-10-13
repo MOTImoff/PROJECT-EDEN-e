@@ -33,8 +33,7 @@
     </section>
 
     <section class="logo-section">
-      <div class="eden-mark" aria-hidden="true">♧</div>
-      <div class="logo-word">EDEN<span>:e</span></div>
+      <img class="eden-logo-image" src="images/eden-logo.png" alt="PROJECT EDEN:e ロゴ">
       <p class="japanese-title">- 楽園侵害計画 -</p>
     </section>
 
@@ -115,17 +114,44 @@
   <script>
     const toggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('.site-nav');
+
     toggle.addEventListener('click', () => {
       const isOpen = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!isOpen));
       nav.classList.toggle('is-open', !isOpen);
+      document.body.classList.toggle('menu-open', !isOpen);
     });
+
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('is-open');
         toggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
       });
     });
+
+    // Scroll reveal: elements gently rise into view.
+    const revealTargets = document.querySelectorAll(
+      '.logo-section, .section, .character-banner, .symbol-grid, .news-panel, .world-banner'
+    );
+    revealTargets.forEach((el, index) => {
+      el.classList.add('reveal');
+      if (el.classList.contains('symbol-grid')) el.classList.add('reveal-stagger');
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
+      revealTargets.forEach(el => observer.observe(el));
+    } else {
+      revealTargets.forEach(el => el.classList.add('is-visible'));
+    }
   </script>
 </body>
 </html>
