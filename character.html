@@ -16,7 +16,9 @@
   --muted: #66858b;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -26,8 +28,14 @@ body {
     "Noto Serif JP", serif;
 }
 
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
 
 .page {
   width: min(100%, 760px);
@@ -60,6 +68,7 @@ button { font-family: inherit; }
   font-size: clamp(24px, 5vw, 34px);
   font-weight: normal;
   letter-spacing: .1em;
+  overflow-wrap: anywhere;
 }
 
 .glow-line {
@@ -116,70 +125,91 @@ button { font-family: inherit; }
   letter-spacing: .12em;
 }
 
-/* 縦書きセリフ＋立ち絵 */
+/* 立ち絵を全面に置き、セリフを重ねる */
 .visual {
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  align-items: center;
+  position: relative;
   min-height: 390px;
   margin-top: 12px;
 }
 
-.dialogue {
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid #65e5dc75;
-  overflow: hidden;
-}
-
-.dialogue p {
-  margin: 0;
-  max-height: 310px;
-  color: #effbf9;
-  font-size: 17px;
-  line-height: 2;
-  letter-spacing: .12em;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  overflow-wrap: anywhere;
-  animation: slideIn .45s ease both;
-}
-
 .portrait {
   position: relative;
+  width: 100%;
   height: 390px;
-  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .portrait img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  transition: opacity .25s ease;
   filter: drop-shadow(0 0 9px #65e5dc16);
+  opacity: 1;
+  transition:
+    opacity .65s ease,
+    filter .65s ease,
+    transform .65s ease;
 }
 
-.portrait img.switching { opacity: .15; }
+.portrait img.switching {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(8px);
+}
+
+/* セリフの背景を薄くして立ち絵に重ねる */
+.dialogue {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  bottom: 8px;
+  left: 0;
+  width: 38%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 5px;
+  border-right: 1px solid #65e5dc75;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 27, 32, .88),
+    rgba(14, 27, 32, .48),
+    rgba(14, 27, 32, .05)
+  );
+  pointer-events: none;
+}
+
+.dialogue p {
+  margin: 0;
+  max-height: 100%;
+  color: #effbf9;
+  font-size: 15px;
+  line-height: 1.8;
+  letter-spacing: .1em;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  overflow-wrap: anywhere;
+  text-shadow: 0 0 8px #0e1b20;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity .35s ease,
+    transform .35s ease;
+}
 
 .portrait-index {
   position: absolute;
+  z-index: 3;
   right: 4px;
   bottom: 5px;
   color: #8caeaf;
   font: 10px "Times New Roman", serif;
   letter-spacing: .15em;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-8px); }
-  to { opacity: 1; transform: translateX(0); }
+  transition: opacity .35s ease;
 }
 
 /* CHANGEボタン */
@@ -197,7 +227,9 @@ button { font-family: inherit; }
   box-shadow: 0 0 5px #65e5dc70;
 }
 
-.change-rule:last-child { transform: rotate(180deg); }
+.change-rule:last-child {
+  transform: rotate(180deg);
+}
 
 .change-button {
   color: var(--pale);
@@ -215,6 +247,12 @@ button { font-family: inherit; }
   background: #65e5dc20;
   box-shadow: 0 0 12px #65e5dc50;
   outline: none;
+}
+
+.change-button:disabled,
+.navigation button:disabled {
+  opacity: .55;
+  cursor: wait;
 }
 
 .change-caption {
@@ -238,6 +276,13 @@ button { font-family: inherit; }
   box-shadow:
     0 -2px 12px rgba(101, 229, 220, .12),
     0 4px 18px rgba(49, 89, 103, .06);
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition:
+    opacity .45s ease,
+    transform .45s ease,
+    filter .45s ease;
 }
 
 .profile-top {
@@ -316,6 +361,7 @@ button { font-family: inherit; }
   font-size: 13px;
   line-height: 2.1;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .keywords {
@@ -343,6 +389,11 @@ button { font-family: inherit; }
   border-top: 1px solid #8ab7b7;
   border-bottom: 1px solid #8ab7b7;
   color: var(--ink);
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
 }
 
 .navigation button {
@@ -367,7 +418,9 @@ button { font-family: inherit; }
   letter-spacing: .12em;
 }
 
-.current-number small { font-size: 12px; }
+.current-number small {
+  font-size: 12px;
+}
 
 .footer {
   display: flex;
@@ -378,181 +431,96 @@ button { font-family: inherit; }
   letter-spacing: .12em;
 }
 
+/* 切り替え時に文字もふわっと消える */
+.heading,
+.stage-label,
+.dialogue,
+.portrait-index,
+.change-wrap,
+.change-caption,
+.profile-top,
+.profile h2,
+.profile .english,
+.profile-rule,
+.profile .data,
+.profile h3,
+.profile .description,
+.profile .keywords {
+  transition:
+    opacity .4s ease,
+    transform .4s ease,
+    filter .4s ease;
+}
+
+.is-fading {
+  opacity: 0 !important;
+  transform: translateY(7px);
+  filter: blur(2px);
+}
+
 /* スマートフォン */
 @media (max-width: 480px) {
-  .page { padding: 20px 12px 30px; }
+  .page {
+    padding: 20px 12px 30px;
+  }
 
   .visual {
-    grid-template-columns: 42px minmax(0, 1fr);
     min-height: 330px;
   }
 
-  .portrait { height: 330px; }
-  .dialogue { min-height: 280px; }
-  .dialogue p { max-height: 280px; font-size: 16px; }
-  .profile { padding: 20px 13px; }
-  .data { gap: 4px; }
-  .data div { padding: 7px 5px; }
-  .data dd { font-size: 12px; }
-  .stage-label { font-size: 9px; }
+  .portrait {
+    height: 330px;
+  }
+
+  .dialogue {
+    width: 40%;
+    padding: 6px 4px;
+  }
+
+  .dialogue p {
+    font-size: 13px;
+    line-height: 1.65;
+    letter-spacing: .06em;
+  }
+
+  .profile {
+    padding: 20px 13px;
+  }
+
+  .data {
+    gap: 4px;
+  }
+
+  .data div {
+    padding: 7px 5px;
+  }
+
+  .data dd {
+    font-size: 12px;
+  }
+
+  .stage-label {
+    font-size: 9px;
+  }
+
+  .change-button {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
 }
-  /* ===== 表示調整・ふわっと演出 ===== */
-
-/* 立ち絵の上にセリフを重ねる */
-.visual {
-position: relative;
-display: block;
-min-height: 390px;
-}
-
-.portrait {
-width: 100%;
-height: 390px;
-}
-
-.dialogue {
-position: absolute;
-z-index: 2;
-left: 8px;
-top: 10px;
-bottom: 10px;
-width: 34%;
-min-height: 0;
-overflow: visible;
-border-right: 1px solid #65e5dc75;
-background: linear-gradient(
-90deg,
-rgba(14, 27, 32, .8),
-rgba(14, 27, 32, .15),
-transparent
-);
-pointer-events: none;
-}
-
-.dialogue p {
-max-height: none;
-max-width: 100%;
-padding: 8px 5px;
-font-size: 16px;
-line-height: 1.9;
-overflow: visible;
-overflow-wrap: anywhere;
-text-shadow: 0 0 8px #0e1b20;
-animation: none;
-}
-
-/* 立ち絵をなめらかに */
-.portrait img {
-opacity: 1;
-transition:
-opacity .7s ease,
-filter .7s ease;
-}
-
-.portrait img.switching {
-opacity: 0;
-filter: blur(5px);
-}
-
-/* プロフィールもふわっと */
-.profile {
-transition:
-opacity .5s ease,
-transform .5s ease,
-filter .5s ease;
-}
-
-.profile.is-changing {
-opacity: 0;
-transform: translateY(10px);
-filter: blur(3px);
-}
-
-/* 見出し・番号・セリフなどの切り替え */
-.heading,
-.stage-label,
-.dialogue,
-.portrait-index,
-.change-caption,
-.profile-top,
-.profile h2,
-.profile .english,
-.profile-rule,
-.profile .data,
-.profile h3,
-.profile .description,
-.profile .keywords,
-.navigation {
-transition:
-opacity .45s ease,
-transform .45s ease,
-filter .45s ease;
-}
-
-.is-fading {
-opacity: 0;
-transform: translateY(6px);
-filter: blur(2px);
-}
-
-/* スマホ */
-@media (max-width: 480px) {
-.visual {
-min-height: 330px;
-}
-
-.portrait {
-height: 330px;
-}
-
-.dialogue {
-left: 4px;
-width: 38%;
-}
-
-.dialogue p {
-font-size: 14px;
-line-height: 1.8;
-letter-spacing: .08em;
-}
-}
-
-@media (prefers-reduced-motion: reduce) {
-.portrait img,
-.profile,
-.heading,
-.stage-label,
-.dialogue,
-.portrait-index,
-.change-caption,
-.profile-top,
-.profile h2,
-.profile .english,
-.profile-rule,
-.profile .data,
-.profile h3,
-.profile .description,
-.profile .keywords,
-.navigation {
-transition: none !important;
-}
-}
-  .is-fading {
-  opacity: 0;
-  transform: translateY(6px);
-  filter: blur(2px);
-}
 </style>
 </head>
-  
+
 <body>
 <main class="page">
 
@@ -566,7 +534,6 @@ transition: none !important;
     <div class="glow-line"></div>
   </header>
 
-  <!-- キャラクター表示ステージ -->
   <section class="stage">
     <div class="stage-label">
       <span>PROJECT EDEN:e</span>
@@ -574,10 +541,6 @@ transition: none !important;
     </div>
 
     <div class="visual">
-      <div class="dialogue">
-        <p id="dialogueText">＿＿俺が何者かは、今はどうだっていいんだ。</p>
-      </div>
-
       <div class="portrait" id="portrait">
         <img
           id="portraitImage"
@@ -585,6 +548,10 @@ transition: none !important;
           alt="スワンの全身立ち絵"
         >
         <span class="portrait-index" id="portraitIndex">N / 09</span>
+      </div>
+
+      <div class="dialogue">
+        <p id="dialogueText">＿＿俺が何者かは、今はどうだっていいんだ。</p>
       </div>
     </div>
 
@@ -594,342 +561,574 @@ transition: none !important;
         class="change-button"
         id="changeButton"
         type="button"
-        aria-pressed="false"
-      >
-        ◇　CHANGE　◇
-      </button>
+         aria-pressed="false"
+
+      >◇　CHANGE　◇</button>
+
       <div class="change-rule"></div>
+
     </div>
 
     <div class="change-caption">
+
       CHANGE VIEW / FULL ⇄ CLOSE-UP
+
     </div>
+
   </section>
 
-  <!-- プロフィール -->
-  <section class="profile">
+  <section class="profile" id="profile">
+
     <div class="profile-top">
+
       <span>CHARACTER PROFILE</span>
+
       <span id="profileNo">N</span>
+
     </div>
 
     <h2 id="characterName">スワン</h2>
+
     <div class="english" id="englishName">Swan</div>
+
     <div class="profile-rule"></div>
 
     <dl class="data">
+
       <div>
+
         <dt>年齢</dt>
+
         <dd id="age">2■</dd>
+
       </div>
+
       <div>
+
         <dt>身長</dt>
+
         <dd id="height">178cm</dd>
+
       </div>
+
       <div>
+
         <dt>所属</dt>
+
         <dd id="affiliation">universe</dd>
+
       </div>
+
     </dl>
 
     <h3>このキャラクターについて</h3>
-    <p class="description" id="description">
-      選定官。頼りない。
-    </p>
+
+    <p class="description" id="description">選定官。頼りない。</p>
 
     <div class="keywords" id="keywords">
+
       <span>選定官</span>
+
       <span>記憶喪失</span>
+
     </div>
+
   </section>
 
-  <!-- 前後のキャラクターへ -->
-  <nav class="navigation" aria-label="キャラクター切り替え">
-    <button
-      id="prevButton"
-      type="button"
-      aria-label="前のキャラクター"
-    >←</button>
+  <nav class="navigation" id="navigation" aria-label="キャラクター切り替え">
+
+    <button id="prevButton" type="button" aria-label="前のキャラクター">←</button>
 
     <span class="current-number">
+
       <small>No.</small>
+
       <span id="currentNo">N</span>
+
     </span>
 
-    <button
-      id="nextButton"
-      type="button"
-      aria-label="次のキャラクター"
-    >→</button>
+    <button id="nextButton" type="button" aria-label="次のキャラクター">→</button>
+
   </nav>
 
   <footer class="footer">
+
     <span>PROJECT EDEN:e</span>
+
     <span>END OF SUBJECT DATA</span>
+
   </footer>
 
 </main>
-</body>
-
 
 <script>
+
 const characters = [
+
   {
+
     id: "N",
+
     name: "スワン",
+
     english: "Swan",
+
     age: "2■",
+
     height: "178cm",
+
     affiliation: "universe",
+
     quote: "＿＿俺が何者かは、今はどうだっていいんだ。",
+
     description: "選定官。頼りない。",
+
     keywords: ["選定官", "記憶喪失"]
+
   },
+
   {
+
     id: "01",
+
     name: "テセウス",
+
     english: "Theseus",
+
     age: "3■",
+
     height: "183cm",
+
     affiliation: "universe",
+
     quote: "＿＿大切なもの、思い出のもの、全て私は大事にしますよ。",
+
     description: "丁寧な喋り方をする非常に温和な男性。滅多なことでは動じず、人間を含めた生物を愛する様子が確認されている。「医者」の免許を持っており、頭脳も悪くないようだ。縫合と解剖が得意で、よく観葉植物を育てている。",
+
     keywords: ["医師", "融合", "縫合"]
+
   },
+
   {
+
     id: "02",
+
     name: "メアリー",
+
     english: "Mary",
+
     age: "2■",
+
     height: "159cm",
+
     affiliation: "universe",
+
     quote: "あたし、ちょっとは頭良いからさ！任せてよ！",
+
     description: "世話が好きな、元気に溢れた女性。慌ただしい表情変化に潜む正体は、「今世紀最大の天才」。その頭脳は全地区の人間が渇望する様子だが＿＿現在は科学に触れることをやめているようだ。子供にとびきり優しい。",
+
     keywords: ["科学者", "天才", "■■■■"]
+
   },
+
   {
+
     id: "03",
+
     name: "ミルグラム",
+
     english: "Milgram",
+
     age: "2■",
+
     height: "168cm",
+
     affiliation: "universe",
+
     quote: "上官の命令が絶対だ。それが揺らぐことはない。",
+
     description: "命令を遵守する、非常に従順な女性。その内面は正義に燃えており、弱きを助け悪を挫くことを目的としている。正義が関わると少々乱暴で融通のきかない場面があるが、相手が女性であれば優しく丁寧に接する場面は何度も目撃されている。",
+
     keywords: ["正義", "従順"]
+
   },
+
   {
+
     id: "04",
+
     name: "イカロス",
+
     english: "Icarus",
+
     age: "28",
+
     height: "187cm",
+
     affiliation: "universe",
+
     quote: "ン。ま、悩んでたらいつでも俺に相談していいぜ？",
+
     description: "軽い雰囲気を持つ、非常に柔軟な男性。人を笑わすのが好きなのか、冗談を言う様子がよく観測されるが…成功率は高くないようだ。暗い話や雰囲気が嫌いであることと、隠れた髪の下はひどい火傷があることが判明している。",
+
     keywords: ["「天使」", "墜落"]
+
   },
+
   {
+
     id: "05",
+
     name: "バベル",
+
     english: "Babel",
+
     age: "■■",
+
     height: "165cm",
+
     affiliation: "universe",
+
     quote: "…わたくし、夜と月は好きです。…とっても、美しくって",
+
     description: "顔にヴェールを纏う、ミステリアスな女性。話すことが苦手なのか、はたまた別の理由かは不明だが口数は少ない。「世界一の美女」の称号を有しているが、その所以は所作や声を見るだけでも頷けるだろう。世間に疎い様子もまた、魅力の一つだ。",
+
     keywords: ["美貌", "身元不明"]
+
   },
+
   {
+
     id: "06",
+
     name: "エコーチェンバー",
+
     english: "Echochamber",
+
     age: "■■",
+
     height: "197cm",
+
     affiliation: "universe",
+
     quote: "繁殖と発展はこの世界に不要だ。",
+
     description: "正体不明の宗教に身を委ねている堅苦しい男性。元神父との情報があるが、宗教と彼自身のデータが存在しないため真偽は不明。思想は「■■(解読不能)教」に染められており、それに激しく反する場合は命令を受け入れない様子だ。しかし、非常に屈強な肉体をしている。",
+
     keywords: ["宗教家", "楽園"]
+
   },
+
   {
+
     id: "07",
+
     name: "スタンフォード",
+
     english: "Stanford",
+
     age: "■■",
+
     height: "179cm",
+
     affiliation: "universe",
+
     quote: "もぉなんでもいいからさっ、さっさと選定してよ〜。",
+
     description: "面倒を嫌う自由な男性。自分を「看守」と名乗る様子が複数目撃されている。いたずらが得意なようだ。頻繁に空を見て独り言を喋っていることと、他者を攻撃する際に目が輝くのには見ないふりしておくことを推奨する。",
+
     keywords: ["看守", "囚人"]
+
   },
+
   {
+
     id: "08",
+
     name: "メメント",
+
     english: "Memento",
+
     age: "2■",
+
     height: "150cm",
+
     affiliation: "universe",
+
     quote: "…わかんない。忘れちゃった。",
+
     description: "非常に忘れっぽい女性。体のあちこちに油性のペンでメモしている所を見るに、忘れることは不便な様子。小さな体のわりに戦闘能力が高く、反抗的でもないが…彼女に何かを覚えていてもらうことは諦めた方が良いだろう。",
+
     keywords: ["忘却", "”特産物”", "■■■"]
+
   }
+
 ];
 
 let currentIndex = 0;
+
 let isCloseUp = false;
 
+let switching = false;
+
 const $ = (id) => document.getElementById(id);
-  const fadeTargets = [
-“heading”,
-“stageLabel”,
-“dialogueText”,
-“portraitIndex”,
-“profile”,
-“navigation”
+
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const fadeTargets = [
+
+  ".heading",
+
+  ".stage-label",
+
+  ".dialogue",
+
+  ".portrait-index",
+
+  ".change-wrap",
+
+  ".change-caption",
+
+  ".profile",
+
+  ".navigation"
+
 ];
 
 function fadeOutTargets() {
-fadeTargets.forEach((id) => {
-const element = id === “heading”
-? document.querySelector(”.heading”)
-: id === “stageLabel”
-? document.querySelector(”.stage-label”)
-: id === “profile”
-? document.querySelector(”.profile”)
-: id === “navigation”
-? document.querySelector(”.navigation”)
-: $(id);
 
-if (element) element.classList.add("is-fading");
+  fadeTargets.forEach(selector => {
 
-});
+    const element = document.querySelector(selector);
+
+    if (element) element.classList.add("is-fading");
+
+  });
+
 }
 
 function fadeInTargets() {
-fadeTargets.forEach((id) => {
-const element = id === “heading”
-? document.querySelector(”.heading”)
-: id === “stageLabel”
-? document.querySelector(”.stage-label”)
-: id === “profile”
-? document.querySelector(”.profile”)
-: id === “navigation”
-? document.querySelector(”.navigation”)
-: $(id);
 
-if (element) element.classList.remove("is-fading");
+  fadeTargets.forEach(selector => {
 
-});
+    const element = document.querySelector(selector);
+
+    if (element) element.classList.remove("is-fading");
+
+  });
+
 }
 
-function wait(ms) {
-return new Promise((resolve) => setTimeout(resolve, ms));
+function updatePortrait() {
+
+  const character = characters[currentIndex];
+
+  const image = $("portraitImage");
+
+  const fileName = character.id + (isCloseUp ? "up" : "") + ".png";
+
+  image.src = "images/Characters/" + fileName;
+
+  image.alt = character.name +
+
+    (isCloseUp ? "のアップ画像" : "の全身立ち絵");
+
+  $("changeButton").setAttribute("aria-pressed", String(isCloseUp));
+
+  $("changeButton").textContent = isCloseUp
+
+    ? "◇　FULL BODY　◇"
+
+    : "◇　CHANGE　◇";
+
 }
 
-let switching = false;
-  async function renderCharacter(index) {
-if (switching) return;
-switching = true;
+async function renderCharacter(index) {
 
-fadeOutTargets();
-$(“portraitImage”).classList.add(“switching”);
+  if (switching) return;
 
-await wait(280);
+  switching = true;
 
-currentIndex = (index + characters.length) % characters.length;
-const character = characters[currentIndex];
+  $("prevButton").disabled = true;
 
-$(“headingNo”).textContent = character.id;
-$(“dataTitle”).textContent = “No.” + character.id + “　D A T A”;
-$(“stageNo”).textContent = “IDENTIFICATION No.” + character.id;
-$(“dialogueText”).textContent = character.quote;
+  $("nextButton").disabled = true;
 
-$(“characterName”).textContent = character.name;
-$(“englishName”).textContent = character.english;
-$(“age”).textContent = character.age;
-$(“height”).textContent = character.height;
-$(“affiliation”).textContent = character.affiliation;
-$(“description”).textContent = character.description;
+  $("changeButton").disabled = true;
 
-$(“profileNo”).textContent = character.id;
-$(“currentNo”).textContent = character.id;
-$(“portraitIndex”).textContent = character.id + “ / 09”;
+  fadeOutTargets();
 
-$(“keywords”).replaceChildren(
-…character.keywords.map((word) => {
-const tag = document.createElement(“span”);
-tag.textContent = word;
-return tag;
-})
-);
+  $("portraitImage").classList.add("switching");
 
-isCloseUp = false;
-$(“changeButton”).setAttribute(“aria-pressed”, “false”);
-updatePortrait();
+  await wait(300);
 
-const url = new URL(window.location.href);
-url.searchParams.set(“ch”, character.id);
-window.history.replaceState({}, “”, url);
+  currentIndex = (index + characters.length) % characters.length;
 
-await wait(80);
+  const character = characters[currentIndex];
 
-$(“portraitImage”).classList.remove(“switching”);
-fadeInTargets();
+  $("headingNo").textContent = character.id;
 
-await wait(500);
-switching = false;
-}
+  $("dataTitle").textContent = "No." + character.id + "　D A T A";
+
+  $("stageNo").textContent = "IDENTIFICATION No." + character.id;
+
+  $("dialogueText").textContent = character.quote;
+
+  $("characterName").textContent = character.name;
+
+  $("englishName").textContent = character.english;
+
+  $("age").textContent = character.age;
+
+  $("height").textContent = character.height;
+
+  $("affiliation").textContent = character.affiliation;
+
+  $("description").textContent = character.description;
+
+  $("profileNo").textContent = character.id;
+
+  $("currentNo").textContent = character.id;
+
+  $("portraitIndex").textContent = character.id + " / 09";
+
+  $("keywords").replaceChildren(
+
+    ...character.keywords.map(word => {
+
+      const tag = document.createElement("span");
+
+      tag.textContent = word;
+
+      return tag;
+
+    })
 
   );
 
   isCloseUp = false;
-  $("changeButton").setAttribute("aria-pressed", "false");
+
   updatePortrait();
 
-  // URLにも現在のキャラクターを反映
   const url = new URL(window.location.href);
-  url.searchParams.set("ch", character.id);
-  window.history.replaceState({}, "", url);
-}
 
-function updatePortrait() {
-  const character = characters[currentIndex];
+  url.searchParams.set("ch", character.id);
+
+  window.history.replaceState({}, "", url);
+
   const image = $("portraitImage");
 
-  const fileName = character.id + (isCloseUp ? "up" : "") + ".png";
-  image.src = "images/Characters/" + fileName;
-  image.alt = character.name + (isCloseUp ? "のアップ画像" : "の全身立ち絵");
+  // 画像の読み込みが終わってからフェードインする
 
-  $("changeButton").setAttribute("aria-pressed", String(isCloseUp));
-  $("changeButton").textContent = isCloseUp
-    ? "◇　FULL BODY　◇"
-    : "◇　CHANGE　◇";
+  await new Promise(resolve => {
+
+    if (image.complete && image.naturalWidth > 0) {
+
+      resolve();
+
+      return;
+
+    }
+
+    image.addEventListener("load", resolve, { once: true });
+
+    image.addEventListener("error", resolve, { once: true });
+
+  });
+
+  await wait(80);
+
+  image.classList.remove("switching");
+
+  fadeInTargets();
+
+  await wait(450);
+
+  $("prevButton").disabled = false;
+
+  $("nextButton").disabled = false;
+
+  $("changeButton").disabled = false;
+
+  switching = false;
+
 }
 
-// 前のキャラクター・次のキャラクター
+async function togglePortrait() {
+
+  if (switching) return;
+
+  switching = true;
+
+  $("changeButton").disabled = true;
+
+  const image = $("portraitImage");
+
+  image.classList.add("switching");
+
+  await wait(300);
+
+  isCloseUp = !isCloseUp;
+
+  updatePortrait();
+
+  await new Promise(resolve => {
+
+    if (image.complete && image.naturalWidth > 0) {
+
+      resolve();
+
+      return;
+
+    }
+
+    image.addEventListener("load", resolve, { once: true });
+
+    image.addEventListener("error", resolve, { once: true });
+
+  });
+
+  await wait(80);
+
+  image.classList.remove("switching");
+
+  await wait(300);
+
+  $("changeButton").disabled = false;
+
+  switching = false;
+
+}
+
 $("prevButton").addEventListener("click", () => {
+
   renderCharacter(currentIndex - 1);
+
 });
 
 $("nextButton").addEventListener("click", () => {
+
   renderCharacter(currentIndex + 1);
+
 });
 
-// 全身画像とアップ画像を切り替え
-$("changeButton").addEventListener("click", () => {
-  isCloseUp = !isCloseUp;
-  updatePortrait();
-});
+$("changeButton").addEventListener("click", togglePortrait);
 
 // URLに ?ch=02 などがあれば、そのキャラクターを表示
+
 const params = new URLSearchParams(window.location.search);
+
 const requestedId = params.get("ch");
+
 const requestedIndex = characters.findIndex(
-  (character) => character.id === requestedId
+
+  character => character.id === requestedId
+
 );
 
 renderCharacter(requestedIndex >= 0 ? requestedIndex : 0);
+
 </script>
 
 </body>
+
 </html>
