@@ -1,1 +1,360 @@
 
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#D8F3F3">
+  <title>NEWS | PROJECT EDEN:e</title>
+  <meta name="description" content="PROJECT EDEN:e 公式ニュース・お知らせ">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* NEWS PAGE */
+    .news-page {
+      background: #F3F8F8;
+      color: #315967;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .news-heading {
+      text-align: center;
+      padding: 76px 20px 48px;
+    }
+
+    .news-heading .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      margin-bottom: 16px;
+      opacity: 0.7;
+    }
+
+    .news-heading h1 {
+      font-size: clamp(38px, 8vw, 64px);
+      letter-spacing: 0.12em;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .news-heading .subtitle {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      margin-top: 12px;
+    }
+
+    .news-heading .description {
+      font-size: 12px;
+      margin-top: 28px;
+      line-height: 2;
+    }
+
+    .news-list {
+      width: min(760px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .news-entry {
+      padding: 25px 24px;
+      margin-bottom: 16px;
+      border: 1px solid #C5DADD;
+      background: rgba(255,255,255,0.66);
+      overflow-wrap: anywhere;
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .news-category {
+      display: inline-block;
+      border: 1px solid #A9C9CE;
+      padding: 3px 9px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .news-entry h2 {
+      font-size: 16px;
+      line-height: 1.8;
+      margin: 0 0 12px;
+      font-weight: 600;
+    }
+
+    .news-entry .news-body {
+      font-size: 13px;
+      line-height: 2;
+      margin: 0;
+    }
+
+    .news-entry .news-body + .news-body {
+      margin-top: 8px;
+    }
+
+    .event-details {
+      margin-top: 18px;
+      padding: 12px 16px;
+      border-left: 2px solid #A8C8CE;
+      font-size: 12px;
+      line-height: 2;
+    }
+
+    /* ABNORMAL SYSTEM NOTICE */
+    .news-entry.error-entry {
+      background: #172326;
+      color: #D9E9E7;
+      border: 1px solid #547F82;
+      box-shadow: 0 0 18px rgba(60, 112, 116, 0.08);
+    }
+
+    .error-entry .news-meta {
+      color: #A3D8D3;
+    }
+
+    .error-entry .news-category {
+      color: #F0A4A4;
+      border-color: #A65F68;
+    }
+
+    .error-entry h2 {
+      color: #F1F5F4;
+    }
+
+    .error-entry .news-body {
+      color: #D9E9E7;
+    }
+
+    .error-entry .error-label {
+      color: #F0A4A4;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #547F82;
+    }
+
+    .news-back {
+      display: block;
+      width: fit-content;
+      margin: 42px auto 0;
+      padding: 12px 26px;
+      border: 1px solid #A9C9CE;
+      color: #315967;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .news-back:hover {
+      background: #315967;
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 600px) {
+      .news-heading {
+        padding: 58px 18px 34px;
+      }
+
+      .news-entry {
+        padding: 20px 17px;
+        margin-bottom: 12px;
+      }
+
+      .news-entry h2 {
+        font-size: 15px;
+      }
+
+      .news-entry .news-body {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="mini-brand" href="index.html#top"
+       aria-label="PROJECT EDEN:e ホーム">EDEN:e</a>
+
+    <button class="menu-toggle" type="button"
+      aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span>
+      <span class="sr-only">メニュー</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="メインメニュー">
+      <a href="index.html#top">HOME</a>
+      <a href="world.html">WORLD</a>
+      <a href="character.html">CHARACTER</a>
+      <a href="news.html" aria-current="page">NEWS</a>
+      <a href="index.html#contact">FAQ / CONTACT</a>
+    </nav>
+  </header>
+
+  <main class="news-page">
+    <section class="news-heading">
+      <p class="eyebrow">PROJECT EDEN:e / OFFICIAL WEBSITE</p>
+      <h1>NEWS</h1>
+      <p class="subtitle">INFORMATION &amp; SYSTEM LOG</p>
+      <p class="description">
+        PROJECT EDEN:e に関する最新情報をお知らせいたします。
+      </p>
+    </section>
+
+    <section class="news-list" aria-label="お知らせ一覧">
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-01-01">2026.1.1</time>
+          <span class="news-category">INFO</span>
+        </div>
+        <h2>公式サイトを作成しました。</h2>
+        <p class="news-body">
+          PROJECT EDEN:eの公式サイトを作成いたしました。
+          ゲームの最新情報や候補者の紹介を随時更新してまいります。
+        </p>
+      </article>
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-02-02">2026.2.2</time>
+          <span class="news-category">INFO</span>
+        </div>
+        <h2>選定官および候補者の撮影完了について</h2>
+        <p class="news-body">
+          選定官および候補者の撮影が完了いたしました。
+          ご協力いただいた皆様に、心より感謝申し上げます。
+        </p>
+      </article>
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-03-03">2026.3.3</time>
+          <span class="news-category">UPDATE</span>
+        </div>
+        <h2>不具合修正のお知らせ</h2>
+        <p class="news-body">
+          先日発生した原因不明の不具合を確認し、修正いたしました。
+          ご利用の皆様にはご不便をおかけしましたことをお詫び申し上げます。
+        </p>
+      </article>
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-04-01">2026.4.1</time>
+          <span class="news-category">EVENT</span>
+        </div>
+        <h2>TOKO GAME SHOW 出展のお知らせ</h2>
+        <p class="news-body">
+          PROJECT EDEN:eは、TOKOゲームショウに出展いたします。
+        </p>
+        <p class="news-body">
+          当日は候補者のプロフィール展示や、ゲームを先行体験できる
+          特別展示を予定しております。皆様のご来場を心よりお待ちしております。
+        </p>
+        <div class="event-details">
+          会場：GENKAKU国際展示場<br>
+          ブース：A-04<br>
+          開催日時：後日公開
+        </div>
+      </article>
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-04-04">2026.4.4</time>
+          <span class="news-category">INFO</span>
+        </div>
+        <h2>候補者プロフィール公開のお知らせ</h2>
+        <p class="news-body">
+          選定官および候補者のプロフィールを公開いたしました。
+          各人物の詳細につきましては、CHARACTERページよりご確認ください。
+        </p>
+      </article>
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-05-05">2026.5.5</time>
+          <span class="news-category">UPDATE</span>
+        </div>
+        <h2>二次創作ガイドライン更新のお知らせ</h2>
+        <p class="news-body">
+          二次創作ガイドラインの内容を一部変更いたしました。
+          創作活動を行われる際は、最新のガイドラインをご確認ください。
+        </p>
+      </article>
+
+      <article class="news-entry error-entry">
+        <div class="news-meta">
+          <time datetime="0000-00-00">0000.0.0</time>
+          <span class="news-category">ERROR</span>
+        </div>
+        <h2>候補者No.■■から異常を検知しました</h2>
+        <p class="news-body">
+          No.■■から異常を検知いたしました。
+        </p>
+        <p class="news-body">
+          universeは鎮圧に武力を行使するため、
+          選定官様は、身の安全の確保をお願いいたします。
+        </p>
+        <p class="news-body">
+          なお、本通知に関するお問い合わせにはお答えいたしかねます。
+        </p>
+        <p class="error-label">
+          SYSTEM NOTICE / UNAUTHORIZED INCIDENT
+        </p>
+      </article>
+
+      <article class="news-entry">
+        <div class="news-meta">
+          <time datetime="2026-07-07">2026.7.7</time>
+          <span class="news-category">INFO</span>
+        </div>
+        <h2>LINEスタンプ販売！</h2>
+        <p class="news-body">
+          PROJECT EDEN:eのLINEスタンプが期間限定販売開始！
+        </p>
+      </article>
+
+    </section>
+
+    <a class="news-back" href="index.html#top">← BACK TO HOME</a>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-brand">PROJECT EDEN:e</p>
+    <p class="copyright">© 2026 PROJECT EDEN:e. All rights reserved.</p>
+    <p class="footer-note">Fictional project / Unofficial creative work</p>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.site-nav');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const isOpen =
+          toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        nav.classList.toggle('is-open', !isOpen);
+        document.body.classList.toggle('menu-open', !isOpen);
+      });
+
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('is-open');
+          document.body.classList.remove('menu-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+</body>
+</html>
