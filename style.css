@@ -799,3 +799,45 @@ html { scroll-behavior: smooth; }
     font-size: 12px;
   }
 }
+/* =================================
+   キャラクターロゴ：常時表示
+================================= */
+
+.symbol-grid a {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transform: none !important;
+  filter: none;
+}
+
+.symbol-grid .character-logo {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none;
+}
+
+/* マウスを乗せていないときもロゴを表示 */
+.symbol-grid a img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ホバー時もロゴを消さない */
+.symbol-grid a:hover,
+.symbol-grid a:hover img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* スクロール演出によって隠れないようにする */
+.symbol-grid.reveal,
+.symbol-grid.reveal.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
