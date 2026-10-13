@@ -1,0 +1,416 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F3F8F8">
+  <title>FAQ | PROJECT EDEN:e</title>
+  <meta name="description" content="PROJECT EDEN:e よくあるご質問・お問い合わせ">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .faq-page {
+      width: min(760px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 56px 0 80px;
+      color: #315967;
+    }
+
+    .faq-heading {
+      margin-bottom: 12px;
+      font-size: clamp(30px, 6vw, 42px);
+      letter-spacing: 4px;
+      color: #244650;
+    }
+
+    .faq-subtitle {
+      margin-bottom: 36px;
+      color: #6C9299;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      overflow: hidden;
+      border: 1px solid #C5DADD;
+      border-radius: 6px;
+      background: #F8FBFB;
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 16px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.8;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-number {
+      flex-shrink: 0;
+      color: #6C9BA1;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .faq-question {
+      flex: 1;
+    }
+
+    .faq-plus {
+      flex-shrink: 0;
+      font-size: 20px;
+      font-weight: 400;
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] .faq-plus {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 18px 20px 46px;
+      color: #557780;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .faq-answer p {
+      margin: 0;
+    }
+
+    .faq-answer a {
+      color: #315967;
+    }
+
+    .contact-area {
+      margin-top: 100px;
+      padding-top: 32px;
+      border-top: 1px solid #C5DADD;
+    }
+
+    .contact-title {
+      margin: 0 0 10px;
+      color: #244650;
+      font-size: 23px;
+      letter-spacing: 1px;
+    }
+
+    .contact-description {
+      margin: 0 0 28px;
+      color: #557780;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 20px;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .form-field label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .required {
+      margin-left: 5px;
+      color: #7D7777;
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      border: 1px solid #C5DADD;
+      border-radius: 5px;
+      background: #FFFFFF;
+      color: #315967;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    .form-field textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus {
+      outline: 2px solid #A9D0D1;
+      outline-offset: 2px;
+    }
+
+    .privacy-note {
+      margin: 0;
+      color: #557780;
+      font-size: 11px;
+      line-height: 1.9;
+    }
+
+    .privacy-note a {
+      color: #315967;
+    }
+
+    .required-note {
+      margin: -8px 0 0;
+      color: #557780;
+      font-size: 11px;
+    }
+
+    .contact-submit {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #244650;
+      border-radius: 5px;
+      background: #244650;
+      color: #F3F8F8;
+      font: inherit;
+      font-size: 13px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    .contact-submit:hover {
+      background: #315967;
+    }
+
+    .form-demo-note {
+      margin: 0;
+      color: #6C9299;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .faq-back {
+      display: inline-block;
+      margin-top: 48px;
+      color: #315967;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .faq-back:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .faq-page {
+        padding-top: 38px;
+      }
+
+      .faq-item summary {
+        gap: 9px;
+        padding: 15px 12px;
+        font-size: 13px;
+      }
+
+      .faq-answer {
+        padding: 0 14px 18px 38px;
+      }
+
+      .contact-area {
+        margin-top: 76px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="mini-brand" href="index.html#top"
+       aria-label="PROJECT EDEN:e ホーム">EDEN:e</a>
+
+    <button class="menu-toggle" type="button"
+      aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span>
+      <span class="sr-only">メニュー</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="メインメニュー">
+      <a href="index.html#top">HOME</a>
+      <a href="world.html">WORLD</a>
+      <a href="character.html">CHARACTER</a>
+      <a href="news.html">NEWS</a>
+      <a href="faq.html" aria-current="page">FAQ</a>
+    </nav>
+  </header>
+
+  <main class="faq-page">
+    <h1 class="faq-heading">FAQ</h1>
+    <p class="faq-subtitle">よくあるご質問</p>
+
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-number">Q01</span>
+          <span class="faq-question">このゲームは無料でプレイできますか？</span>
+          <span class="faq-plus" aria-hidden="true">＋</span>
+        </summary>
+        <div class="faq-answer">
+          <p>全て無料です。課金要素がございますのでご注意ください。</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-number">Q02</span>
+          <span class="faq-question">このゲームは実在しますか？</span>
+          <span class="faq-plus" aria-hidden="true">＋</span>
+        </summary>
+        <div class="faq-answer">
+          <p>しません。幻覚です。</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-number">Q03</span>
+          <span class="faq-question">データの引き継ぎができません。</span>
+          <span class="faq-plus" aria-hidden="true">＋</span>
+        </summary>
+        <div class="faq-answer">
+          <p>お手数をお掛けしますが、お問い合わせフォームから、ユーザーネームとユーザーIDをご記載のうえ、ご送信をお願いいたします。</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-number">Q04</span>
+          <span class="faq-question">ゲームの対応機種は何ですか？</span>
+          <span class="faq-plus" aria-hidden="true">＋</span>
+        </summary>
+        <div class="faq-answer">
+          <p>Windows、Mac、iOS、Androidすべてでプレイ可能です。</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-number">Q05</span>
+          <span class="faq-question">ゲームは全年齢ですか？</span>
+          <span class="faq-plus" aria-hidden="true">＋</span>
+        </summary>
+        <div class="faq-answer">
+          <p>全年齢対象ですが、少々過激なシーンがございますので、あらかじめご留意ください。</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span class="faq-number">Q06</span>
+          <span class="faq-question">線画が綺麗すぎませんか？</span>
+          <span class="faq-plus" aria-hidden="true">＋</span>
+        </summary>
+        <div class="faq-answer">
+          <p>線画屋さんにご協力をいただいております。ありがとうございます。</p>
+        </div>
+      </details>
+
+    </div>
+
+    <section class="contact-area" id="contact">
+      <h2 class="contact-title">お問い合わせフォーム</h2>
+      <p class="contact-description">
+        ご不明な点やお困りのことがございましたら、<br>
+        以下のフォームよりお問い合わせください。
+      </p>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-field">
+          <label for="contact-name">
+            お名前<span class="required">必須</span>
+          </label>
+          <input id="contact-name" name="name" type="text"
+            placeholder="お名前を入力してください" required>
+        </div>
+
+        <div class="form-field">
+          <label for="contact-email">
+            メールアドレス<span class="required">必須</span>
+          </label>
+          <input id="contact-email" name="email" type="email"
+            placeholder="example@example.com" required>
+        </div>
+
+        <div class="form-field">
+          <label for="contact-message">
+            お問い合わせ内容<span class="required">必須</span>
+          </label>
+          <textarea id="contact-message" name="message"
+            placeholder="お問い合わせ内容をご入力ください" required></textarea>
+        </div>
+
+        <p class="privacy-note">
+          個人情報の取り扱いについては、
+          <a href="#" id="privacy-link">プライバシーポリシー</a>
+          をご確認ください。
+        </p>
+
+        <p class="required-note">※「必須」と記載された項目は入力が必要です。</p>
+
+        <button class="contact-submit" type="submit">
+          内容を確認する　↗
+        </button>
+
+        <p class="form-demo-note">
+          ※このフォームは表示見本です。入力内容は送信・保存されません。
+        </p>
+      </form>
+    </section>
+
+    <a class="faq-back" href="index.html#top">← HOMEに戻る</a>
+  </main>
+
+  <footer class="site-footer">
+    <p>PROJECT EDEN:e</p>
+  </footer>
+
+  <script>
+    // デモ用フォーム：実際の送信は行いません
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      alert("こちらは表示見本のため、お問い合わせは送信されません。");
+    });
+
+    document.getElementById("privacy-link").addEventListener("click", function(event) {
+      event.preventDefault();
+      alert("プライバシーポリシーは準備中です。");
+    });
+
+    // スマートフォン用メニュー
+    const menuToggle = document.querySelector(".menu-toggle");
+    const siteNav = document.querySelector(".site-nav");
+
+    if (menuToggle && siteNav) {
+      menuToggle.addEventListener("click", function() {
+        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+        menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+        siteNav.classList.toggle("is-open");
+      });
+    }
+  </script>
+</body>
+</html>
