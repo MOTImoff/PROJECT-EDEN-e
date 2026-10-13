@@ -229,3 +229,62 @@ html { scroll-behavior: smooth; }
   .reveal { opacity: 1; transform: none; }
   .reveal-stagger a { opacity: 1; transform: none; }
 }
+
+/* FAQ BUTTON */
+.faq-button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  margin: 24px auto;
+  padding: 16px;
+  color: #315967;
+  background: #F3F8F8;
+  border: 1px solid #C5DADD;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.faq-button:hover {
+  background: #E5F1F1;
+  border-color: #315967;
+}
+
+.faq-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  color: #EAF7F5;
+  background: #244650;
+  border-radius: 5px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.faq-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.faq-text strong {
+  font-size: 17px;
+  letter-spacing: 2px;
+}
+
+.faq-text small {
+  font-size: 11px;
+  color: #557780;
+}
+
+.faq-arrow {
+  font-size: 22px;
+  color: #315967;
+}
