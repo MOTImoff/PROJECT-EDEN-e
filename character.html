@@ -1,643 +1,1511 @@
-
 <!DOCTYPE html>
+
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CHARACTER ARCHIVE | PROJECT EDEN:e</title>
+
+<meta name="theme-color" content="#081216">
+
+<title>SUBJECT ARCHIVE | PROJECT EDEN:e</title>
 
 <style>
+
 * { box-sizing: border-box; }
 
 :root {
+
+  --bg: #081216;
+
+  --panel: #0d1b20;
+
+  --panel-light: #13272c;
+
   --teal: #65e5dc;
-  --pale: #c6f5ef;
-  --ink: #315967;
-  --muted: #66858b;
+
+  --pale: #d9fffa;
+
+  --white: #edf6f5;
+
+  --muted: #7d9a9d;
+
+  --line: rgba(101,229,220,.38);
+
 }
 
 html {
+
   scroll-behavior: smooth;
+
+  background: var(--bg);
+
 }
 
 body {
+
   margin: 0;
-  background: #f3f8f8;
-  color: #e6f1ef;
+
+  color: var(--white);
+
+  background:
+
+    radial-gradient(ellipse at 18% 24%, #15383e 0%, transparent 37%),
+
+    radial-gradient(ellipse at 85% 55%, #10272d 0%, transparent 35%),
+
+    var(--bg);
+
   font-family: "Yu Mincho", "Hiragino Mincho ProN",
+
     "Noto Serif JP", serif;
+
+  min-height: 100vh;
+
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+button, a { font-family: inherit; }
+
+button { -webkit-tap-highlight-color: transparent; }
+
+a { color: inherit; text-decoration: none; }
+
+button:focus-visible, a:focus-visible {
+
+  outline: 1px solid var(--teal);
+
+  outline-offset: 4px;
+
 }
 
-button {
-  font-family: inherit;
+::selection {
+
+  color: var(--bg);
+
+  background: var(--teal);
+
 }
+
+/* HEADER */
+
+.site-header {
+
+  min-height: 76px;
+
+  padding: 17px clamp(16px, 4vw, 52px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 16px;
+
+  border-bottom: 1px solid var(--line);
+
+  position: relative;
+
+  z-index: 5;
+
+  background: rgba(8,18,22,.82);
+
+}
+
+.brand {
+
+  font-family: "Times New Roman", serif;
+
+  font-size: clamp(17px, 3vw, 27px);
+
+  letter-spacing: .16em;
+
+  white-space: nowrap;
+
+}
+
+.brand span { color: var(--teal); }
+
+.header-right {
+
+  text-align: right;
+
+  color: var(--muted);
+
+  font: 9px "Times New Roman", serif;
+
+  letter-spacing: .2em;
+
+  line-height: 1.8;
+
+}
+
+.header-right strong {
+
+  display: block;
+
+  color: var(--white);
+
+  font-weight: normal;
+
+}
+
+/* MAIN LAYOUT */
 
 .page {
-  width: min(100%, 760px);
-  margin: auto;
-  padding: 24px 16px 40px;
+
+  width: 100%;
+
+  max-width: 1440px;
+
+  margin: 0 auto;
+
+  padding: 24px clamp(14px, 3vw, 42px) 28px;
+
 }
 
 .back-link {
-  display: inline-block;
-  margin-bottom: 24px;
-  color: var(--ink);
-  font-size: 12px;
+
+  display: inline-flex;
+
+  gap: 9px;
+
+  align-items: center;
+
+  color: #a3c2c3;
+
+  font-size: 11px;
+
   letter-spacing: .12em;
-  border-bottom: 1px solid #8ab7b7;
-  padding-bottom: 5px;
+
+  padding: 8px 0 12px;
+
+  transition: color .25s;
+
 }
 
-.heading {
-  color: var(--ink);
-  margin-bottom: 18px;
+.back-link:hover { color: var(--teal); }
+
+.archive-heading {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: end;
+
+  gap: 14px;
+
+  margin: 12px 0 20px;
+
 }
 
-.heading small {
+.eyebrow {
+
+  color: var(--teal);
+
   font: 10px "Times New Roman", serif;
-  letter-spacing: .2em;
+
+  letter-spacing: .25em;
+
 }
 
-.heading h1 {
-  margin: 10px 0 16px;
-  font-size: clamp(24px, 5vw, 34px);
+.archive-heading h1 {
+
+  margin: 7px 0 0;
+
+  font-size: clamp(23px, 4vw, 38px);
+
   font-weight: normal;
-  letter-spacing: .1em;
-  overflow-wrap: anywhere;
+
+  letter-spacing: .12em;
+
+}
+
+.archive-note {
+
+  color: var(--muted);
+
+  font: 9px "Times New Roman", serif;
+
+  letter-spacing: .15em;
+
+  text-align: right;
+
+  line-height: 1.9;
+
 }
 
 .glow-line {
+
   height: 1px;
+
   background: linear-gradient(
-    90deg, transparent, var(--teal), white, var(--teal), transparent
+
+    90deg, transparent, var(--teal), #f2ffff, var(--teal), transparent
+
   );
-  box-shadow: 0 0 8px var(--teal), 0 0 16px #3ba9a6;
+
+  box-shadow: 0 0 9px rgba(101,229,220,.45);
+
 }
 
-/* キャラクターの暗いステージ */
-.stage {
+/* CHARACTER SCREEN */
+
+.character-screen {
+
+  display: grid;
+
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+
+  border: 1px solid var(--line);
+
+  background: rgba(5,13,17,.72);
+
+  box-shadow: 0 0 32px rgba(101,229,220,.06);
+
   position: relative;
-  padding: 18px 12px 16px;
-  background:
-    radial-gradient(ellipse at center, #23474c 0%, transparent 72%),
-    linear-gradient(145deg, #1a343a, #0e1b20);
-  border: 1px solid #527f80;
-  box-shadow: 0 0 12px #65e5dc25,
-    inset 0 0 24px #65e5dc0b;
+
+  isolation: isolate;
+
 }
 
-.stage::before,
-.stage::after {
+.character-screen::before,
+
+.character-screen::after {
+
   content: "";
+
   position: absolute;
-  width: 22px;
-  height: 22px;
+
+  width: 20px;
+
+  height: 20px;
+
   pointer-events: none;
+
+  z-index: 4;
+
 }
 
-.stage::before {
+.character-screen::before {
+
   top: -1px;
+
   left: -1px;
+
   border-top: 2px solid var(--teal);
+
   border-left: 2px solid var(--teal);
-  filter: drop-shadow(0 0 4px var(--teal));
+
 }
 
-.stage::after {
+.character-screen::after {
+
   right: -1px;
+
   bottom: -1px;
+
   border-right: 2px solid var(--teal);
+
   border-bottom: 2px solid var(--teal);
-  filter: drop-shadow(0 0 4px var(--teal));
+
 }
 
-.stage-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  color: #8caeaf;
-  font: 10px "Times New Roman", serif;
-  letter-spacing: .12em;
-}
+/* LARGE PORTRAIT */
 
-/* 立ち絵を全面に置き、セリフを重ねる */
-.visual {
+.visual-panel {
+
+  min-width: 0;
+
+  min-height: 620px;
+
   position: relative;
-  min-height: 390px;
-  margin-top: 12px;
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(ellipse at 50% 38%, rgba(54,123,125,.38), transparent 54%),
+
+    linear-gradient(150deg, #10272c, #081216 78%);
+
+  border-right: 1px solid var(--line);
+
+}
+
+.visual-panel::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+
+  background:
+
+    linear-gradient(90deg, rgba(5,13,17,.55), transparent 28%, transparent 75%, rgba(5,13,17,.25)),
+
+    linear-gradient(0deg, rgba(5,13,17,.88), transparent 32%, transparent 80%, rgba(5,13,17,.12));
+
+}
+
+.visual-panel::after {
+
+  content: "SUBJECT / EDEN";
+
+  position: absolute;
+
+  top: 22px;
+
+  left: 22px;
+
+  color: rgba(198,245,239,.55);
+
+  font: 9px "Times New Roman", serif;
+
+  letter-spacing: .25em;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+}
+
+.visual {
+
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+
 }
 
 .portrait {
-  position: relative;
-  width: 100%;
-  height: 390px;
+
+  position: absolute;
+
+  inset: 0;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
 }
 
 .portrait img {
+
   display: block;
+
   width: 100%;
+
   height: 100%;
+
   object-fit: contain;
+
   object-position: center bottom;
-  filter: drop-shadow(0 0 9px #65e5dc16);
+
+  filter: drop-shadow(0 0 18px rgba(101,229,220,.09));
+
   opacity: 1;
-  transition:
-    opacity .65s ease,
-    filter .65s ease,
-    transform .65s ease;
+
+  transform: scale(1);
+
+  transition: opacity .35s ease, filter .35s ease, transform .5s ease;
+
 }
 
 .portrait img.switching {
+
   opacity: 0;
-  filter: blur(5px);
-  transform: translateY(8px);
-}
 
-/* セリフの背景を薄くして立ち絵に重ねる */
-.dialogue {
-  position: absolute;
-  z-index: 2;
-  top: 8px;
-  bottom: 8px;
-  left: 0;
-  width: 38%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 5px;
-  border-right: 1px solid #65e5dc75;
-  background: linear-gradient(
-    90deg,
-    rgba(14, 27, 32, .88),
-    rgba(14, 27, 32, .48),
-    rgba(14, 27, 32, .05)
-  );
-  pointer-events: none;
-}
+  filter: blur(7px);
 
-.dialogue p {
-  margin: 0;
-  max-height: 100%;
-  color: #effbf9;
-  font-size: 15px;
-  line-height: 1.8;
-  letter-spacing: .1em;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  overflow-wrap: anywhere;
-  text-shadow: 0 0 8px #0e1b20;
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity .35s ease,
-    transform .35s ease;
+  transform: scale(.985);
+
 }
 
 .portrait-index {
+
   position: absolute;
+
+  top: 22px;
+
+  right: 20px;
+
   z-index: 3;
-  right: 4px;
-  bottom: 5px;
-  color: #8caeaf;
-  font: 10px "Times New Roman", serif;
-  letter-spacing: .15em;
-  transition: opacity .35s ease;
+
+  color: var(--teal);
+
+  font: 11px "Times New Roman", serif;
+
+  letter-spacing: .17em;
+
 }
 
-/* CHANGEボタン */
-.change-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 12px;
+.portrait-index span { color: var(--muted); }
+
+.dialogue {
+
+  position: absolute;
+
+  z-index: 2;
+
+  left: 18px;
+
+  bottom: 30px;
+
+  max-width: 48%;
+
+  padding: 12px 15px;
+
+  background: linear-gradient(90deg, rgba(5,13,17,.8), transparent);
+
+  border-left: 1px solid var(--teal);
+
+  pointer-events: none;
+
 }
 
-.change-rule {
-  height: 1px;
-  flex: 1;
-  background: linear-gradient(90deg, transparent, var(--teal));
-  box-shadow: 0 0 5px #65e5dc70;
+.dialogue p {
+
+  margin: 0;
+
+  color: #f0fffd;
+
+  font-size: clamp(13px, 1.5vw, 17px);
+
+  line-height: 2;
+
+  letter-spacing: .13em;
+
+  text-shadow: 0 0 12px #061014;
+
+  overflow-wrap: anywhere;
+
 }
 
-.change-rule:last-child {
-  transform: rotate(180deg);
-}
+.visual-bottom-label {
 
-.change-button {
-  color: var(--pale);
-  background: #65e5dc0a;
-  border: 1px solid #65e5dc90;
-  padding: 10px 17px;
-  font-size: 12px;
-  letter-spacing: .2em;
-  cursor: pointer;
-  transition: .25s;
-}
+  position: absolute;
 
-.change-button:hover,
-.change-button:focus-visible {
-  background: #65e5dc20;
-  box-shadow: 0 0 12px #65e5dc50;
-  outline: none;
-}
+  right: 18px;
 
-.change-button:disabled,
-.navigation button:disabled {
-  opacity: .55;
-  cursor: wait;
-}
+  bottom: 15px;
 
-.change-caption {
-  margin-top: 7px;
-  text-align: center;
-  color: #8caeaf;
+  z-index: 2;
+
+  color: rgba(198,245,239,.65);
+
   font: 9px "Times New Roman", serif;
+
   letter-spacing: .16em;
+
 }
 
-/* 白の半透明プロフィール */
-.profile {
-  margin-top: 26px;
-  padding: 24px 20px;
-  color: var(--ink);
-  background: rgba(255, 255, 255, .86);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(70, 205, 196, .9);
-  border-bottom: 1px solid rgba(70, 205, 196, .55);
-  box-shadow:
-    0 -2px 12px rgba(101, 229, 220, .12),
-    0 4px 18px rgba(49, 89, 103, .06);
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-  transition:
-    opacity .45s ease,
-    transform .45s ease,
-    filter .45s ease;
+/* PROFILE PANEL */
+
+.profile-panel {
+
+  min-width: 0;
+
+  padding: clamp(20px, 3vw, 38px);
+
+  display: flex;
+
+  flex-direction: column;
+
+  background:
+
+    linear-gradient(145deg, rgba(19,39,44,.96), rgba(7,17,21,.98));
+
 }
 
 .profile-top {
+
   display: flex;
+
   justify-content: space-between;
-  gap: 10px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(70, 155, 157, .4);
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding-bottom: 13px;
+
+  border-bottom: 1px solid var(--line);
+
   color: var(--muted);
+
   font: 10px "Times New Roman", serif;
-  letter-spacing: .15em;
+
+  letter-spacing: .16em;
+
 }
 
-.profile h2 {
-  margin: 22px 0 4px;
-  color: #244650;
-  font-size: clamp(30px, 7vw, 42px);
+.profile-top strong {
+
+  color: var(--teal);
+
   font-weight: normal;
+
+}
+
+.identity {
+
+  padding: 23px 0 19px;
+
+}
+
+.identity-number {
+
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 12px;
+
+  color: var(--teal);
+
+  font: clamp(42px, 6vw, 76px) "Times New Roman", serif;
+
+  line-height: 1;
+
+}
+
+.identity-number small {
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  letter-spacing: .1em;
+
+}
+
+.profile-panel h2 {
+
+  margin: 13px 0 5px;
+
+  color: var(--white);
+
+  font-size: clamp(30px, 4vw, 43px);
+
+  line-height: 1.35;
+
+  font-weight: normal;
+
   letter-spacing: .12em;
+
   overflow-wrap: anywhere;
+
 }
 
 .english {
-  color: #4a8588;
-  font: 12px "Times New Roman", serif;
-  letter-spacing: .3em;
+
+  color: #8fcac7;
+
+  font: 13px "Times New Roman", serif;
+
+  letter-spacing: .27em;
+
   overflow-wrap: anywhere;
+
 }
 
-.profile-rule {
+.section-label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin: 24px 0 14px;
+
+  color: var(--pale);
+
+  font-size: 12px;
+
+  letter-spacing: .12em;
+
+}
+
+.section-label span {
+
+  flex: 1;
+
   height: 1px;
-  margin: 20px 0;
-  background: linear-gradient(90deg, #65cfc8, rgba(101, 207, 200, .05));
-  box-shadow: 0 0 5px rgba(101, 207, 200, .3);
+
+  background: linear-gradient(90deg, var(--line), transparent);
+
 }
 
 .data {
+
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin: 0 0 28px;
+
+  grid-template-columns: repeat(3, minmax(0,1fr));
+
+  gap: 0;
+
+  margin: 0;
+
+  border-top: 1px solid rgba(101,229,220,.13);
+
+  border-bottom: 1px solid rgba(101,229,220,.13);
+
 }
 
 .data div {
+
   min-width: 0;
-  padding: 8px;
-  border-left: 1px solid rgba(70, 155, 157, .65);
+
+  padding: 13px 9px;
+
+  border-right: 1px solid rgba(101,229,220,.17);
+
 }
 
+.data div:first-child { padding-left: 0; }
+
+.data div:last-child { border-right: 0; }
+
 .data dt {
+
   margin-bottom: 8px;
+
   color: var(--muted);
-  font-size: 12px;
+
+  font-size: 11px;
+
 }
 
 .data dd {
-  margin: 0;
-  color: #244650;
-  font-size: 13px;
-  overflow-wrap: anywhere;
-}
 
-.profile h3 {
-  margin: 0 0 12px;
-  padding-left: 10px;
-  border-left: 2px solid #55bdb7;
-  color: #315967;
-  font-size: 15px;
-  font-weight: normal;
-  letter-spacing: .1em;
+  margin: 0;
+
+  color: var(--white);
+
+  font-size: 12px;
+
+  overflow-wrap: anywhere;
+
 }
 
 .description {
+
   margin: 0;
-  color: #405e65;
-  font-size: 13px;
+
+  color: #b7cdcc;
+
+  font-size: 12px;
+
   line-height: 2.1;
+
   white-space: pre-line;
+
   overflow-wrap: anywhere;
+
 }
 
 .keywords {
+
   display: flex;
+
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
+
+  gap: 7px;
+
+  margin-top: 15px;
+
 }
 
 .keywords span {
-  padding: 5px 12px;
-  color: #397a7b;
-  background: rgba(101, 229, 220, .06);
-  border: 1px solid rgba(70, 155, 157, .6);
-  font-size: 11px;
+
+  padding: 6px 11px;
+
+  border: 1px solid rgba(101,229,220,.48);
+
+  color: #b7eeea;
+
+  background: rgba(101,229,220,.035);
+
+  font-size: 10px;
+
+  letter-spacing: .05em;
+
 }
 
-/* 前後のキャラクターへ */
-.navigation {
+.profile-bottom {
+
+  margin-top: auto;
+
+  padding-top: 28px;
+
+  color: #54777c;
+
+  font: 9px "Times New Roman", serif;
+
+  letter-spacing: .18em;
+
+  line-height: 1.9;
+
+}
+
+/* CHANGE VIEW */
+
+.change-area {
+
+  margin-top: 14px;
+
+}
+
+.change-wrap {
+
   display: flex;
+
   align-items: center;
-  justify-content: space-between;
-  margin: 24px 0;
-  padding: 10px;
-  border-top: 1px solid #8ab7b7;
-  border-bottom: 1px solid #8ab7b7;
-  color: var(--ink);
+
+  gap: 14px;
+
+}
+
+.change-rule {
+
+  flex: 1;
+
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, var(--teal));
+
+}
+
+.change-rule:last-child {
+
+  transform: rotate(180deg);
+
+}
+
+.change-button {
+
+  min-height: 42px;
+
+  padding: 10px 18px;
+
+  color: var(--pale);
+
+  background: #65e5dc08;
+
+  border: 1px solid rgba(101,229,220,.65);
+
+  font-size: 11px;
+
+  letter-spacing: .15em;
+
+  cursor: pointer;
+
+  transition: background .25s, box-shadow .25s;
+
+}
+
+.change-button:hover,
+
+.change-button:focus-visible {
+
+  background: #65e5dc1c;
+
+  box-shadow: 0 0 15px #65e5dc30;
+
+}
+
+.change-button:disabled,
+
+.navigation button:disabled {
+
+  opacity: .5;
+
+  cursor: wait;
+
+}
+
+.change-caption {
+
+  margin-top: 8px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font: 9px "Times New Roman", serif;
+
+  letter-spacing: .19em;
+
+}
+
+/* CHARACTER SELECTOR */
+
+.selector {
+
+  margin-top: 30px;
+
+  padding: 17px 0 12px;
+
+  border-top: 1px solid var(--line);
+
+  border-bottom: 1px solid var(--line);
+
+}
+
+.selector-heading {
+
+  display: flex;
+justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 13px;
+
+  color: var(--muted);
+
+  font: 10px "Times New Roman", serif;
+
+  letter-spacing: .18em;
+
+}
+
+.selector-heading strong {
+
+  color: var(--teal);
+
+  font-weight: normal;
+
+}
+
+.character-list {
+
+  display: grid;
+
+  grid-template-columns: repeat(9, minmax(0,1fr));
+
+  gap: 7px;
+
+}
+
+.character-choice {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 0;
+
+  aspect-ratio: 3 / 4;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  color: #9bb6b7;
+
+  background: #0d2025;
+
+  border: 1px solid rgba(101,229,220,.2);
+
+  cursor: pointer;
+
+  transition: border-color .25s, box-shadow .25s, opacity .25s;
+
+}
+
+.character-choice::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(0deg, rgba(3,10,13,.8), transparent 65%);
+
+  pointer-events: none;
+
+}
+
+.character-choice img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center top;
+
+  opacity: .58;
+
+  filter: saturate(.7);
+
+  transition: opacity .25s, filter .25s;
+
+}
+
+.character-choice span {
+
+  position: absolute;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 5px;
+
+  z-index: 1;
+
+  text-align: center;
+
+  font: 11px "Times New Roman", serif;
+
+  letter-spacing: .06em;
+
+}
+
+.character-choice:hover img,
+
+.character-choice.active img {
+
   opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity .4s ease,
-    transform .4s ease;
+
+  filter: saturate(1);
+
+}
+
+.character-choice:hover,
+
+.character-choice.active {
+
+  border-color: var(--teal);
+
+  box-shadow: 0 0 12px rgba(101,229,220,.24);
+
+}
+
+.character-choice.active {
+
+  color: var(--pale);
+
+  outline: 1px solid var(--teal);
+
+  outline-offset: -3px;
+
+}
+
+.character-choice:disabled { cursor: wait; opacity: .6; }
+
+/* PREV / NEXT */
+
+.navigation {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 19px;
+
 }
 
 .navigation button {
-  width: 44px;
-  height: 42px;
+
+  min-height: 42px;
+
+  padding: 8px 12px;
+
+  color: #b6d5d3;
+
   background: transparent;
+
   border: 1px solid transparent;
-  color: var(--ink);
-  font-size: 25px;
+
+  font-size: 12px;
+
+  letter-spacing: .12em;
+
   cursor: pointer;
+
+  transition: color .2s, border-color .2s;
+
 }
 
-.navigation button:hover,
-.navigation button:focus-visible {
-  border-color: #65bdb8;
-  box-shadow: 0 0 8px #65e5dc55;
-  outline: none;
+.navigation button:hover {
+
+  color: var(--teal);
+
+  border-color: var(--line);
+
 }
 
 .current-number {
-  font-size: 25px;
+
+  color: var(--teal);
+
+  font: 19px "Times New Roman", serif;
+
   letter-spacing: .12em;
+
 }
 
 .current-number small {
-  font-size: 12px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
 }
 
 .footer {
+
   display: flex;
+
   justify-content: space-between;
-  gap: 10px;
+
+  gap: 12px;
+
+  margin-top: 27px;
+
+  padding-top: 14px;
+
+  border-top: 1px solid rgba(101,229,220,.15);
+
   color: #66858b;
+
   font: 9px "Times New Roman", serif;
-  letter-spacing: .12em;
+
+  letter-spacing: .15em;
+
 }
 
-/* 切り替え時に文字もふわっと消える */
-.heading,
-.stage-label,
-.dialogue,
-.portrait-index,
-.change-wrap,
-.change-caption,
-.profile-top,
-.profile h2,
-.profile .english,
-.profile-rule,
-.profile .data,
-.profile h3,
-.profile .description,
-.profile .keywords {
-  transition:
-    opacity .4s ease,
-    transform .4s ease,
-    filter .4s ease;
+/* TRANSITIONS */
+
+.fade-target {
+
+  transition: opacity .35s ease, transform .35s ease, filter .35s ease;
+
 }
 
 .is-fading {
+
   opacity: 0 !important;
-  transform: translateY(7px);
+
+  transform: translateY(5px);
+
   filter: blur(2px);
+
 }
 
-/* スマートフォン */
-@media (max-width: 480px) {
-  .page {
-    padding: 20px 12px 30px;
+@media (min-width: 1000px) {
+
+  .visual-panel { min-height: 680px; }
+
+}
+
+@media (max-width: 700px) {
+
+  .page { padding: 15px 12px 24px; }
+
+  .archive-heading { margin: 9px 0 15px; }
+
+  .archive-heading h1 { font-size: 25px; }
+
+  .archive-note { font-size: 8px; }
+
+  .character-screen {
+
+    grid-template-columns: minmax(0,1fr);
+
   }
 
-  .visual {
-    min-height: 330px;
+  .visual-panel {
+
+    min-height: 0;
+
+    height: clamp(390px, 112vw, 650px);
+
+    border-right: 0;
+
+    border-bottom: 1px solid var(--line);
+
   }
 
-  .portrait {
-    height: 330px;
+  .visual-panel::after {
+
+    top: 15px;
+
+    left: 14px;
+
+  }
+
+  .portrait-index {
+
+    top: 15px;
+
+    right: 14px;
+
   }
 
   .dialogue {
-    width: 40%;
-    padding: 6px 4px;
+
+    left: 12px;
+
+    bottom: 18px;
+
+    max-width: 47%;
+
+    padding: 8px 9px;
+
   }
 
   .dialogue p {
+
     font-size: 13px;
-    line-height: 1.65;
-    letter-spacing: .06em;
+
+    line-height: 1.8;
+
   }
 
-  .profile {
-    padding: 20px 13px;
+  .visual-bottom-label {
+
+    right: 12px;
+
+    bottom: 11px;
+
+    font-size: 8px;
+
   }
 
-  .data {
-    gap: 4px;
+  .profile-panel {
+
+    padding: 22px 17px;
+
   }
 
-  .data div {
-    padding: 7px 5px;
+  .identity { padding: 19px 0 12px; }
+
+  .identity-number { font-size: 54px; }
+
+  .profile-panel h2 {
+
+    font-size: clamp(30px, 8vw, 39px);
+
   }
 
-  .data dd {
-    font-size: 12px;
+  .section-label { margin-top: 20px; }
+
+  .description { font-size: 12px; }
+
+  .profile-bottom { padding-top: 22px; }
+
+  .selector { margin-top: 23px; }
+
+  .character-list { gap: 5px; }
+
+  .character-choice span {
+
+    bottom: 3px;
+
+    font-size: 10px;
+
   }
 
-  .stage-label {
-    font-size: 9px;
-  }
+}
 
-  .change-button {
-    padding: 10px 12px;
-    font-size: 11px;
-  }
+@media (max-width: 380px) {
+
+  .site-header { padding: 15px 12px; }
+
+  .brand { font-size: 15px; letter-spacing: .1em; }
+
+  .header-right { font-size: 8px; }
+
+  .archive-heading h1 { font-size: 22px; }
+
+  .archive-note { display: none; }
+
+  .visual-panel { height: 112vw; min-height: 350px; }
+
+  .dialogue { max-width: 48%; left: 8px; padding: 6px; }
+
+  .dialogue p { font-size: 12px; }
+
+  .profile-panel { padding: 19px 12px; }
+
+  .data div { padding: 11px 5px; }
+
+  .data dt { font-size: 10px; }
+
+  .data dd { font-size: 11px; }
+
+  .character-list { gap: 3px; }
+
+  .character-choice span { font-size: 9px; }
+
+  .navigation button { padding: 7px 5px; font-size: 10px; }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+
+  *, *::before, *::after {
+
     animation-duration: .01ms !important;
+
     transition-duration: .01ms !important;
+
     scroll-behavior: auto !important;
+
   }
+
 }
+
 </style>
+
 </head>
 
 <body>
+
+<header class="site-header">
+
+  <a class="brand" href="index.html">PROJECT EDEN<span>:e</span></a>
+
+  <div class="header-right">
+
+    <strong>SUBJECT ARCHIVE</strong>
+
+    PERSONNEL RECORD / 09
+
+  </div>
+
+</header>
+
 <main class="page">
 
   <a class="back-link" href="index.html#characters">
+
     ← CHARACTER LIST
+
   </a>
 
-  <header class="heading">
-    <small>SUBJECT ARCHIVE / <span id="headingNo">N</span></small>
-    <h1 id="dataTitle">No.N　D A T A</h1>
-    <div class="glow-line"></div>
+  <header class="archive-heading fade-target">
+
+    <div>
+
+      <div class="eyebrow">PROJECT EDEN:e / PERSONNEL FILE</div>
+
+      <h1>キャラクター記録</h1>
+
+    </div>
+
+    <div class="archive-note">
+
+      CLASSIFIED DATA<br>
+
+      NINE SUBJECTS / ONE WORLD
+
+    </div>
+
   </header>
 
-  <section class="stage">
-    <div class="stage-label">
-      <span>PROJECT EDEN:e</span>
-      <span id="stageNo">IDENTIFICATION No.N</span>
-    </div>
+  <div class="glow-line"></div>
 
-    <div class="visual">
-      <div class="portrait" id="portrait">
-        <img
-          id="portraitImage"
-          src="images/Characters/N.png"
-          alt="スワンの全身立ち絵"
-        >
-        <span class="portrait-index" id="portraitIndex">N / 09</span>
+  <section class="character-screen">
+
+    <div class="visual-panel">
+
+      <div class="visual">
+
+        <div class="portrait">
+
+          <img
+
+            id="portraitImage"
+
+            src="images/Characters/N.png"
+
+            alt="スワンの全身立ち絵"
+
+          >
+
+        </div>
+
+        <div class="dialogue fade-target">
+
+          <p id="dialogueText">＿＿俺が何者かは、今はどうだっていいんだ。</p>
+
+        </div>
+
+        <div class="portrait-index" id="portraitIndex">
+
+          N <span>/ 09</span>
+
+        </div>
+
+        <div class="visual-bottom-label">SUBJECT VISUAL / 01</div>
+
       </div>
 
-      <div class="dialogue">
-        <p id="dialogueText">＿＿俺が何者かは、今はどうだっていいんだ。</p>
+    </div>
+
+    <section class="profile-panel">
+
+      <div class="profile-top fade-target">
+
+        <span>IDENTIFICATION</span>
+
+        <strong id="stageNo">No. N</strong>
+
       </div>
-    </div>
 
-    <div class="change-wrap">
-      <div class="change-rule"></div>
-      <button
-        class="change-button"
-        id="changeButton"
-        type="button"
-         aria-pressed="false"
+      <div class="identity fade-target">
 
-      >◇　CHANGE　◇</button>
+        <div class="identity-number">
 
-      <div class="change-rule"></div>
+          <span id="headingNo">N</span>
 
-    </div>
+          <small>/ 09</small>
 
-    <div class="change-caption">
+        </div>
 
-      CHANGE VIEW / FULL ⇄ CLOSE-UP
+        <h2 id="characterName">スワン</h2>
 
-    </div>
+        <div class="english" id="englishName">Swan</div>
+
+      </div>
+
+      <div class="glow-line"></div>
+
+      <div class="section-label">CHARACTER PROFILE <span></span></div>
+
+      <dl class="data fade-target">
+
+        <div>
+
+          <dt>年齢</dt>
+
+          <dd id="age">2■</dd>
+
+        </div>
+
+        <div>
+
+          <dt>身長</dt>
+
+          <dd id="height">178cm</dd>
+
+        </div>
+
+        <div>
+
+          <dt>所属</dt>
+
+          <dd id="affiliation">universe</dd>
+
+        </div>
+
+      </dl>
+
+      <div class="section-label">このキャラクターについて <span></span></div>
+
+      <p class="description fade-target" id="description">
+
+        選定官。頼りない。
+
+      </p>
+
+      <div class="section-label">KEYWORDS <span></span></div>
+
+      <div class="keywords fade-target" id="keywords">
+
+        <span>選定官</span>
+
+        <span>記憶喪失</span>
+
+      </div>
+
+      <div class="profile-bottom">
+
+        PROJECT EDEN:e<br>
+
+        SUBJECT DATA / ACCESS RESTRICTED
+
+      </div>
+
+    </section>
 
   </section>
 
-  <section class="profile" id="profile">
+  <div class="change-area">
 
-    <div class="profile-top">
+    <div class="change-wrap">
 
-      <span>CHARACTER PROFILE</span>
+      <div class="change-rule"></div>
 
-      <span id="profileNo">N</span>
+      <button class="change-button" id="changeButton"
+
+        type="button" aria-pressed="false">
+
+        ◇ CHANGE VIEW ◇
+
+      </button>
+
+      <div class="change-rule"></div>
+
+    </div>
+
+    <div class="change-caption">FULL BODY ⇄ CLOSE-UP</div>
+
+  </div>
+
+  <section class="selector">
+
+    <div class="selector-heading">
+
+      <span>CHARACTER SELECT</span>
+
+      <strong id="selectorCount">01 / 09</strong>
 
     </div>
 
-    <h2 id="characterName">スワン</h2>
-
-    <div class="english" id="englishName">Swan</div>
-
-    <div class="profile-rule"></div>
-
-    <dl class="data">
-
-      <div>
-
-        <dt>年齢</dt>
-
-        <dd id="age">2■</dd>
-
-      </div>
-
-      <div>
-
-        <dt>身長</dt>
-
-        <dd id="height">178cm</dd>
-
-      </div>
-
-      <div>
-
-        <dt>所属</dt>
-
-        <dd id="affiliation">universe</dd>
-
-      </div>
-
-    </dl>
-
-    <h3>このキャラクターについて</h3>
-
-    <p class="description" id="description">選定官。頼りない。</p>
-
-    <div class="keywords" id="keywords">
-
-      <span>選定官</span>
-
-      <span>記憶喪失</span>
-
-    </div>
+    <div class="character-list" id="characterList"></div>
 
   </section>
 
   <nav class="navigation" id="navigation" aria-label="キャラクター切り替え">
 
-    <button id="prevButton" type="button" aria-label="前のキャラクター">←</button>
+    <button id="prevButton" type="button" aria-label="前のキャラクター">
+
+      ← PREV
+
+    </button>
 
     <span class="current-number">
 
@@ -647,7 +1515,11 @@ button {
 
     </span>
 
-    <button id="nextButton" type="button" aria-label="次のキャラクター">→</button>
+    <button id="nextButton" type="button" aria-label="次のキャラクター">
+
+      NEXT →
+
+    </button>
 
   </nav>
 
@@ -681,7 +1553,7 @@ const characters = [
 
     quote: "＿＿俺が何者かは、今はどうだっていいんだ。",
 
-    description: "選定官。頼りない。",
+    description: "選定官。匿名希望の候補者からは頼りないとの報告。",
 
     keywords: ["選定官", "記憶喪失"]
 
@@ -701,7 +1573,7 @@ const characters = [
 
     affiliation: "universe",
 
-    quote: "＿＿大切なもの、思い出のもの、全て私は大事にしますよ。",
+    quote: "＿＿大切なもの、思い出のもの、私は全て大事にしますよ。",
 
     description: "丁寧な喋り方をする非常に温和な男性。滅多なことでは動じず、人間を含めた生物を愛する様子が確認されている。「医者」の免許を持っており、頭脳も悪くないようだ。縫合と解剖が得意で、よく観葉植物を育てている。",
 
@@ -725,7 +1597,7 @@ const characters = [
 
     quote: "あたし、ちょっとは頭良いからさ！任せてよ！",
 
-    description: "世話が好きな、元気に溢れた女性。慌ただしい表情変化に潜む正体は、「今世紀最大の天才」。その頭脳は全地区の人間が渇望する様子だが＿＿現在は科学に触れることをやめているようだ。子供にとびきり優しい。",
+    description: "世話が好きな、元気に溢れた女性。慌ただしい表情変化から考えられないが、その正体は「今世紀最大の天才」。その頭脳は全地区の人間が渇望する様子だが＿＿現在は科学に触れることをやめているようだ。子供にとびきり優しい。",
 
     keywords: ["科学者", "天才", "■■■■"]
 
@@ -767,7 +1639,7 @@ const characters = [
 
     affiliation: "universe",
 
-    quote: "ン。ま、悩んでたらいつでも俺に相談していいぜ？",
+    quote: "ま、悩んでたらいつでも俺に相談していいぜ？",
 
     description: "軽い雰囲気を持つ、非常に柔軟な男性。人を笑わすのが好きなのか、冗談を言う様子がよく観測されるが…成功率は高くないようだ。暗い話や雰囲気が嫌いであることと、隠れた髪の下はひどい火傷があることが判明している。",
 
@@ -791,7 +1663,7 @@ const characters = [
 
     quote: "…わたくし、夜と月は好きです。…とっても、美しくって",
 
-    description: "顔にヴェールを纏う、ミステリアスな女性。話すことが苦手なのか、はたまた別の理由かは不明だが口数は少ない。「世界一の美女」の称号を有しているが、その所以は所作や声を見るだけでも頷けるだろう。世間に疎い様子もまた、魅力の一つだ。",
+    description: "顔にヴェールを纏う、ミステリアスな女性。話すことが苦手なのか、はたまた別の理由かは不明だが口数は少ない。「世界一の美女」の称号を有しているが、その真偽は洗練された所作や声を見るだけでも明らかであろう。世間に疎い様子もまた、魅力の一つだ。",
 
     keywords: ["美貌", "身元不明"]
 
@@ -857,7 +1729,7 @@ const characters = [
 
     quote: "…わかんない。忘れちゃった。",
 
-    description: "非常に忘れっぽい女性。体のあちこちに油性のペンでメモしている所を見るに、忘れることは不便な様子。小さな体のわりに戦闘能力が高く、反抗的でもないが…彼女に何かを覚えていてもらうことは諦めた方が良いだろう。",
+    description: "非常に忘れっぽい女性。体のあちこちに油性のペンでメモしている所を見るに、忘れることは不便に感じている様子。小さな体のわりに戦闘能力が高く、反抗的でもないが…彼女に何かを覚えていてもらうことは諦めた方が良いだろう。",
 
     keywords: ["忘却", "”特産物”", "■■■"]
 
@@ -871,27 +1743,23 @@ let isCloseUp = false;
 
 let switching = false;
 
-const $ = (id) => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const fadeTargets = [
 
-  ".heading",
-
-  ".stage-label",
+  ".archive-heading",
 
   ".dialogue",
 
-  ".portrait-index",
+  ".identity",
 
-  ".change-wrap",
+  ".data",
 
-  ".change-caption",
+  ".description",
 
-  ".profile",
-
-  ".navigation"
+  ".keywords"
 
 ];
 
@@ -899,9 +1767,11 @@ function fadeOutTargets() {
 
   fadeTargets.forEach(selector => {
 
-    const element = document.querySelector(selector);
+    document.querySelectorAll(selector).forEach(element => {
 
-    if (element) element.classList.add("is-fading");
+      element.classList.add("is-fading");
+
+    });
 
   });
 
@@ -911,9 +1781,37 @@ function fadeInTargets() {
 
   fadeTargets.forEach(selector => {
 
-    const element = document.querySelector(selector);
+    document.querySelectorAll(selector).forEach(element => {
 
-    if (element) element.classList.remove("is-fading");
+      element.classList.remove("is-fading");
+
+    });
+
+  });
+
+}
+
+function imagePath(character, closeUp = false) {
+
+  return "images/Characters/" + character.id +
+
+    (closeUp ? "up" : "") + ".png";
+
+}
+
+function preloadImage(src) {
+
+  return new Promise(resolve => {
+
+    const image = new Image();
+
+    image.onload = () => resolve(true);
+
+    image.onerror = () => resolve(false);
+
+    image.src = src;
+
+    if (image.complete) resolve(image.naturalWidth > 0);
 
   });
 
@@ -925,9 +1823,7 @@ function updatePortrait() {
 
   const image = $("portraitImage");
 
-  const fileName = character.id + (isCloseUp ? "up" : "") + ".png";
-
-  image.src = "images/Characters/" + fileName;
+  image.src = imagePath(character, isCloseUp);
 
   image.alt = character.name +
 
@@ -937,9 +1833,79 @@ function updatePortrait() {
 
   $("changeButton").textContent = isCloseUp
 
-    ? "◇　FULL BODY　◇"
+    ? "◇ FULL BODY ◇"
 
-    : "◇　CHANGE　◇";
+    : "◇ CHANGE VIEW ◇";
+
+}
+
+function updateSelector() {
+
+  const buttons = $("characterList").querySelectorAll("button");
+
+  buttons.forEach((button, index) => {
+
+    const active = index === currentIndex;
+
+    button.classList.toggle("active", active);
+
+    button.setAttribute("aria-pressed", String(active));
+
+  });
+
+  $("selectorCount").textContent =
+
+    String(currentIndex + 1).padStart(2, "0") + " / 09";
+
+}
+
+function buildSelector() {
+
+  const list = $("characterList");
+
+  list.replaceChildren();
+
+  characters.forEach((character, index) => {
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+
+    button.className = "character-choice";
+
+    button.setAttribute(
+
+      "aria-label",
+
+      character.id + " " + character.name + "を表示"
+
+    );
+
+    const image = document.createElement("img");
+
+    image.src = imagePath(character, false);
+
+    image.alt = "";
+
+    image.loading = "lazy";
+
+    image.onerror = () => {
+
+      image.style.display = "none";
+
+    };
+
+    const label = document.createElement("span");
+
+    label.textContent = character.id;
+
+    button.append(image, label);
+
+    button.addEventListener("click", () => renderCharacter(index));
+
+    list.append(button);
+
+  });
 
 }
 
@@ -949,17 +1915,13 @@ async function renderCharacter(index) {
 
   switching = true;
 
-  $("prevButton").disabled = true;
-
-  $("nextButton").disabled = true;
-
-  $("changeButton").disabled = true;
+  setControlsDisabled(true);
 
   fadeOutTargets();
 
   $("portraitImage").classList.add("switching");
 
-  await wait(300);
+  await wait(250);
 
   currentIndex = (index + characters.length) % characters.length;
 
@@ -967,9 +1929,7 @@ async function renderCharacter(index) {
 
   $("headingNo").textContent = character.id;
 
-  $("dataTitle").textContent = "No." + character.id + "　D A T A";
-
-  $("stageNo").textContent = "IDENTIFICATION No." + character.id;
+  $("stageNo").textContent = "No. " + character.id;
 
   $("dialogueText").textContent = character.quote;
 
@@ -985,11 +1945,11 @@ async function renderCharacter(index) {
 
   $("description").textContent = character.description;
 
-  $("profileNo").textContent = character.id;
-
   $("currentNo").textContent = character.id;
 
-  $("portraitIndex").textContent = character.id + " / 09";
+  $("portraitIndex").innerHTML =
+
+    character.id + ' <span>/ 09</span>';
 
   $("keywords").replaceChildren(
 
@@ -1009,6 +1969,8 @@ async function renderCharacter(index) {
 
   updatePortrait();
 
+  updateSelector();
+
   const url = new URL(window.location.href);
 
   url.searchParams.set("ch", character.id);
@@ -1017,11 +1979,9 @@ async function renderCharacter(index) {
 
   const image = $("portraitImage");
 
-  // 画像の読み込みが終わってからフェードインする
-
   await new Promise(resolve => {
 
-    if (image.complete && image.naturalWidth > 0) {
+    if (image.complete) {
 
       resolve();
 
@@ -1035,19 +1995,15 @@ async function renderCharacter(index) {
 
   });
 
-  await wait(80);
+  await wait(60);
 
   image.classList.remove("switching");
 
   fadeInTargets();
 
-  await wait(450);
+  await wait(380);
 
-  $("prevButton").disabled = false;
-
-  $("nextButton").disabled = false;
-
-  $("changeButton").disabled = false;
+  setControlsDisabled(false);
 
   switching = false;
 
@@ -1059,21 +2015,47 @@ async function togglePortrait() {
 
   switching = true;
 
-  $("changeButton").disabled = true;
+  setControlsDisabled(true);
 
   const image = $("portraitImage");
 
   image.classList.add("switching");
 
-  await wait(300);
+  await wait(250);
 
-  isCloseUp = !isCloseUp;
+  const nextMode = !isCloseUp;
+
+  const character = characters[currentIndex];
+
+  const nextSrc = imagePath(character, nextMode);
+
+  // 次の画像が読み込めるかを確認してから切り替える
+
+  const loaded = await preloadImage(nextSrc);
+
+  if (!loaded) {
+
+    image.classList.remove("switching");
+
+    setControlsDisabled(false);
+
+    switching = false;
+
+    alert("画像を読み込めませんでした。\n画像ファイル名と保存場所を確認してください。");
+
+    return;
+
+  }
+
+  isCloseUp = nextMode;
 
   updatePortrait();
 
+  const activeImage = $("portraitImage");
+
   await new Promise(resolve => {
 
-    if (image.complete && image.naturalWidth > 0) {
+    if (activeImage.complete) {
 
       resolve();
 
@@ -1081,21 +2063,37 @@ async function togglePortrait() {
 
     }
 
-    image.addEventListener("load", resolve, { once: true });
+    activeImage.addEventListener("load", resolve, { once: true });
 
-    image.addEventListener("error", resolve, { once: true });
+    activeImage.addEventListener("error", resolve, { once: true });
 
   });
 
-  await wait(80);
+  await wait(60);
 
-  image.classList.remove("switching");
+  activeImage.classList.remove("switching");
 
-  await wait(300);
+  await wait(250);
 
-  $("changeButton").disabled = false;
+  setControlsDisabled(false);
 
   switching = false;
+
+}
+
+function setControlsDisabled(disabled) {
+
+  $("prevButton").disabled = disabled;
+
+  $("nextButton").disabled = disabled;
+
+  $("changeButton").disabled = disabled;
+
+  $("characterList").querySelectorAll("button").forEach(button => {
+
+    button.disabled = disabled;
+
+  });
 
 }
 
@@ -1113,7 +2111,7 @@ $("nextButton").addEventListener("click", () => {
 
 $("changeButton").addEventListener("click", togglePortrait);
 
-// URLに ?ch=02 などがあれば、そのキャラクターを表示
+buildSelector();
 
 const params = new URLSearchParams(window.location.search);
 
@@ -1132,3 +2130,4 @@ renderCharacter(requestedIndex >= 0 ? requestedIndex : 0);
 </body>
 
 </html>
+  
