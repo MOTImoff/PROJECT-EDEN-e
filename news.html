@@ -179,6 +179,7 @@
         .news-banner {
       width: min(760px, calc(100% - 36px));
       margin: 0 auto 28px;
+      animation: newsFadeUp 1s ease-out both;
     }
 
     .news-banner img {
@@ -186,6 +187,16 @@
       width: 100%;
       height: auto;
     }
+    @keyframes newsFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
   </style>
 </head>
 
