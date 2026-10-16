@@ -1067,3 +1067,16 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* スマホ版メインビジュアル調整 */
+@media (max-width: 480px) {
+  .hero {
+    height: calc(100svh - 76px);
+    min-height: 600px;
+  }
+
+  .hero-image {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
