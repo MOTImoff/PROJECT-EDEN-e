@@ -959,3 +959,111 @@ html { scroll-behavior: smooth; }
     transform: translateY(0);
   }
 }
+
+/* メインビジュアルのグラデーションを消す */
+.hero-art::after {
+  background: none !important;
+}
+
+/* ========================================
+   PROJECT EDEN:e OPENING
+======================================== */
+
+#eden-opening {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+
+  padding: 28px;
+  box-sizing: border-box;
+
+  background: #182630;
+  color: #edf3f6;
+  text-align: center;
+
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 起動システム表示 */
+#eden-opening .opening-system,
+#eden-opening .opening-status {
+  margin: 0;
+  font-family: var(--mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: #91aab8;
+}
+
+/* 歓迎メッセージ */
+#eden-opening .opening-message {
+  margin: 0;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN",
+    "Noto Serif JP", serif;
+  font-size: clamp(20px, 4vw, 30px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+
+/* 一文字ずつ表示 */
+#eden-opening .opening-char {
+  display: inline-block;
+  opacity: 0;
+  animation: eden-char-in 0.15s ease forwards;
+}
+
+@keyframes eden-char-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* スキップボタン */
+#eden-opening #opening-skip {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+
+  padding: 12px;
+  border: 1px solid rgba(180, 205, 218, 0.35);
+  background: transparent;
+  color: #c6d6df;
+
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+}
+
+/* 起動画面を閉じる */
+#eden-opening.is-closing {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+}
+
+/* 動きを減らす設定への配慮 */
+@media (prefers-reduced-motion: reduce) {
+  #eden-opening .opening-char {
+    animation: none;
+    opacity: 1;
+  }
+
+  #eden-opening.is-closing {
+    transition: none;
+  }
+}
+
