@@ -199,6 +199,62 @@
   </style>
 </head>
 
+<script>
+(() => {
+  const opening = document.getElementById("eden-opening");
+  const message = document.getElementById("opening-message");
+  const skip = document.getElementById("opening-skip");
+
+  if (!opening || !message || !skip) return;
+
+  // 同じタブで一度見たら、再表示しない
+  try {
+    if (sessionStorage.getItem("eden-opening-seen") === "true") {
+      opening.remove();
+      return;
+    }
+    sessionStorage.setItem("eden-opening-seen", "true");
+  } catch (error) {
+    // 保存できない環境でも演出は続ける
+  }
+
+  const originalText = message.textContent.trim();
+  message.textContent = "";
+
+  // 一文字ずつ表示
+  [...originalText].forEach((char, index) => {
+    const span = document.createElement("span");
+    span.className = "opening-char";
+    span.textContent = char;
+    span.style.animationDelay = `${0.7 + index * 0.09}s`;
+    message.appendChild(span);
+  });
+
+  // 文字が表示し終わったら起動画面を閉じる
+  const totalTime = 700 + [...originalText].length * 90 + 1200;
+
+  let closed = false;
+
+  function closeOpening() {
+    if (closed) return;
+    closed = true;
+    opening.classList.add("is-closing");
+
+    window.setTimeout(() => {
+      opening.remove();
+    }, 850);
+  }
+
+  const timer = window.setTimeout(closeOpening, totalTime);
+
+  // SKIPを押したらすぐ閉じる
+  skip.addEventListener("click", () => {
+    window.clearTimeout(timer);
+    closeOpening();
+  });
+})();
+</script>
+
 <body>
   <!-- OPENING / 起動画面 -->
 <div id="eden-opening" aria-label="PROJECT EDEN:e 起動演出">
