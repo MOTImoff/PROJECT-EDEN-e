@@ -929,3 +929,33 @@ html { scroll-behavior: smooth; }
 .hero-art > p {
   z-index: 3;
 }
+/* 選定官への歓迎メッセージ */
+.welcome-message {
+  position: absolute;
+  z-index: 5;
+  top: clamp(24px, 5vw, 56px);
+  left: clamp(20px, 5vw, 64px);
+  margin: 0;
+
+  color: #edf5f8;
+  font-family: var(--mincho);
+  font-size: clamp(13px, 1.5vw, 19px);
+  letter-spacing: 0.12em;
+  line-height: 1.8;
+
+  text-shadow: 0 1px 10px rgba(25, 48, 62, 0.45);
+
+  opacity: 0;
+  animation: welcome-fade-in 2.5s ease 0.8s forwards;
+}
+
+@keyframes welcome-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
