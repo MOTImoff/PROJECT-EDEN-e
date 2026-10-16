@@ -566,5 +566,45 @@
       });
     }
   </script>
+  
+<script>
+(() => {
+  const opening = document.getElementById("eden-opening");
+  const message = document.getElementById("opening-message");
+  const skip = document.getElementById("opening-skip");
+
+  if (!opening || !message || !skip) return;
+
+  const originalText = message.textContent.trim();
+  message.textContent = "";
+
+  [...originalText].forEach((char, index) => {
+    const span = document.createElement("span");
+    span.className = "opening-char";
+    span.textContent = char;
+    span.style.animationDelay = `${0.5 + index * 0.1}s`;
+    message.appendChild(span);
+  });
+
+  let closed = false;
+
+  function closeOpening() {
+    if (closed) return;
+    closed = true;
+    opening.classList.add("is-closing");
+
+    setTimeout(() => opening.remove(), 850);
+  }
+
+  const duration = 500 + originalText.length * 100 + 1200;
+  const timer = setTimeout(closeOpening, duration);
+
+  skip.addEventListener("click", () => {
+    clearTimeout(timer);
+    closeOpening();
+  });
+})();
+</script>
+
 </body>
 </html>
