@@ -368,9 +368,9 @@
 
       overflow: hidden;
 
-      background: #28333f;
-
-      color: #e8eeee;
+      background: #f8fbfa;
+      
+      color: #397d80;
 
       opacity: 1;
 
@@ -384,29 +384,31 @@
 
     }
 
-    #eden-opening::before {
 
-      content: "";
+#eden-opening::before {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(125, 194, 184, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 50% 70%,
+      rgba(205, 235, 228, 0.35),
+      transparent 65%
+    );
+  animation: eden-glow 3s ease-in-out infinite alternate;
+}
 
-      position: absolute;
+@keyframes eden-glow {
+  from { opacity: 0.65; }
+  to { opacity: 1; }
+}
 
-      inset: 0;
-
-      pointer-events: none;
-
-      background:
-
-        radial-gradient(
-
-          ellipse at center,
-
-          rgba(109, 156, 160, 0.10),
-
-          transparent 65%
-
-        );
-
-    }
 
     #eden-opening.is-closing {
 
@@ -476,7 +478,7 @@
 
       margin: 30px 0 0;
 
-      color: #80999e;
+      color: #8da9a3;
 
       font-family: serif;
 
