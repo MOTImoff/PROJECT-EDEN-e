@@ -973,43 +973,64 @@ html { scroll-behavior: smooth; }
   position: fixed;
   inset: 0;
   z-index: 9999;
-
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-
   padding: 28px;
   box-sizing: border-box;
+  overflow: hidden;
 
-  background: #182630;
-  color: #edf3f6;
+  background: #f8fbfa;
+  color: #397d80;
   text-align: center;
 
   opacity: 1;
   visibility: visible;
+  transition: opacity 1s ease, visibility 0s linear 1s;
 }
 
-/* 起動システム表示 */
-#eden-opening .opening-system,
-#eden-opening .opening-status {
-  margin: 0;
-  font-family: var(--mono, monospace);
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  color: #91aab8;
+/* やわらかな青緑の光 */
+#eden-opening::before {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(125, 194, 184, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 50% 70%,
+      rgba(205, 235, 228, 0.35),
+      transparent 65%
+    );
+  animation: eden-glow 3s ease-in-out infinite alternate;
+}
+
+/* 挨拶とLoadingをまとめる */
+#eden-opening .opening-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  animation: eden-content-in 1s ease both;
 }
 
 /* 歓迎メッセージ */
 #eden-opening .opening-message {
   margin: 0;
+  padding: 0 8px;
   font-family: "Yu Mincho", "Hiragino Mincho ProN",
     "Noto Serif JP", serif;
-  font-size: clamp(20px, 4vw, 30px);
+  font-size: clamp(15px, 3.8vw, 23px);
   font-weight: 400;
   letter-spacing: 0.12em;
   line-height: 2;
+  color: #397d80;
   overflow-wrap: anywhere;
 }
 
@@ -1017,7 +1038,7 @@ html { scroll-behavior: smooth; }
 #eden-opening .opening-char {
   display: inline-block;
   opacity: 0;
-  animation: eden-char-in 0.15s ease forwards;
+  animation: eden-char-in 0.35s ease forwards;
 }
 
 @keyframes eden-char-in {
@@ -1031,34 +1052,77 @@ html { scroll-behavior: smooth; }
   }
 }
 
+/* Loading... */
+#eden-opening .opening-status {
+  margin: 0;
+  color: #8da9a3;
+  font-family: var(--mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+
+#eden-opening .loading-dots {
+  display: inline-block;
+  width: 20px;
+  text-align: left;
+  animation: eden-dots 1.2s steps(4, end) infinite;
+  overflow: hidden;
+}
+
+@keyframes eden-dots {
+  from { width: 0; }
+  to { width: 20px; }
+}
+
+/* ふわっと現れる */
+@keyframes eden-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 光のゆらぎ */
+@keyframes eden-glow {
+  from { opacity: 0.65; }
+  to { opacity: 1; }
+}
+
 /* スキップボタン */
 #eden-opening #opening-skip {
   position: absolute;
   right: 22px;
   bottom: 22px;
-
+  z-index: 2;
   padding: 12px;
-  border: 1px solid rgba(180, 205, 218, 0.35);
+  border: 1px solid rgba(57, 125, 128, 0.2);
   background: transparent;
-  color: #c6d6df;
-
+  color: #789b98;
   font-size: 10px;
   letter-spacing: 0.15em;
   cursor: pointer;
 }
 
-/* 起動画面を閉じる */
+/* 起動画面を閉じる：挨拶もLoadingも同時に消える */
 #eden-opening.is-closing {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+  transition: opacity 1s ease, visibility 0s linear 1s;
 }
 
 /* 動きを減らす設定への配慮 */
 @media (prefers-reduced-motion: reduce) {
+  #eden-opening *,
+  #eden-opening::before {
+    animation: none !important;
+  }
+
   #eden-opening .opening-char {
-    animation: none;
     opacity: 1;
   }
 
@@ -1066,6 +1130,8 @@ html { scroll-behavior: smooth; }
     transition: none;
   }
 }
+
+
 /* スマホ版メインビジュアル調整 */
 @media (max-width: 480px) {
   .hero {
