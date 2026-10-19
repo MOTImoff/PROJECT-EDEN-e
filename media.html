@@ -1,1 +1,309 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17373f">
+  <meta name="description" content="PROJECT EDEN:e - MEDIA ARCHIVE">
+  <title>MEDIA ARCHIVE | PROJECT EDEN:e</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #edf5f7;
+      color: #294954;
+    }
+
+    .archive {
+      width: min(100% - 36px, 960px);
+      margin: 0 auto;
+      padding: 44px 0 70px;
+      box-sizing: border-box;
+    }
+
+    .archive-back {
+      display: inline-block;
+      margin-bottom: 58px;
+      color: #397d80;
+      font-family: monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+    }
+
+    .archive-label {
+      margin: 0 0 14px;
+      color: #397d80;
+      font-family: monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+    }
+
+    .archive h1 {
+      margin: 0;
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .archive-subtitle {
+      margin: 12px 0 0;
+      color: #718c93;
+      font-family: monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+    }
+
+    .archive-notice {
+      margin: 36px 0 62px;
+      padding: 16px 18px;
+      border-left: 2px solid #397d80;
+      background: rgba(57, 125, 128, 0.06);
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    .archive-section {
+      margin-bottom: 64px;
+    }
+
+    .archive-section-title {
+      margin: 0;
+      padding-bottom: 13px;
+      border-bottom: 1px solid rgba(41, 73, 84, 0.22);
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 0.15em;
+    }
+
+    .archive-section-title span {
+      margin-right: 10px;
+      color: #397d80;
+    }
+
+    .archive-section-description {
+      margin: 13px 0 24px;
+      color: #718c93;
+      font-size: 11px;
+      line-height: 1.9;
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .archive-card {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid rgba(41, 73, 84, 0.17);
+      background: rgba(255, 255, 255, 0.48);
+    }
+
+    .archive-placeholder {
+      display: flex;
+      aspect-ratio: 4 / 5;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #dce9eb, #c8dcdf);
+      color: #718c93;
+      font-family: monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-align: center;
+    }
+
+    .archive-card-info {
+      padding: 14px 2px 5px;
+    }
+
+    .archive-id {
+      margin: 0 0 8px;
+      color: #397d80;
+      font-family: monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+
+    .archive-card h3 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 0.04em;
+    }
+
+    .archive-description {
+      margin: 8px 0 0;
+      color: #718c93;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .archive-footer {
+      padding-top: 20px;
+      border-top: 1px solid rgba(41, 73, 84, 0.2);
+      color: #718c93;
+      font-family: monospace;
+      font-size: 9px;
+      line-height: 2;
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .archive {
+        padding-top: 30px;
+      }
+
+      .archive-back {
+        margin-bottom: 44px;
+      }
+
+      .archive-notice {
+        margin: 28px 0 48px;
+      }
+
+      .archive-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .archive-card {
+        padding: 7px;
+      }
+
+      .archive-card-info {
+        padding-top: 11px;
+      }
+
+      .archive-card h3 {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="archive">
+
+    <a class="archive-back" href="index.html">
+      ← RETURN TO MAIN SITE
+    </a>
+
+    <header>
+      <p class="archive-label">
+        PROJECT EDEN:e / INTERNAL DATABASE
+      </p>
+
+      <h1>MEDIA ARCHIVE</h1>
+
+      <p class="archive-subtitle">
+        VISUAL RECORDS // COLLECTION No. 01
+      </p>
+    </header>
+
+    <div class="archive-notice">
+      ARCHIVE ACCESS: GRANTED<br>
+      本ページは作品記録の保管を目的とした資料アーカイブです。
+    </div>
+
+    <!-- ORIGINAL WORKS -->
+    <section class="archive-section">
+
+      <h2 class="archive-section-title">
+        <span>01</span> ORIGINAL RECORDS
+      </h2>
+
+      <p class="archive-section-description">
+        オリジナル作品・自創作キャラクターの記録。
+      </p>
+
+      <div class="archive-grid">
+
+        <article class="archive-card">
+          <div class="archive-placeholder">NO IMAGE REGISTERED</div>
+          <div class="archive-card-info">
+            <p class="archive-id">ORIGINAL / 001</p>
+            <h3>UNTITLED RECORD</h3>
+            <p class="archive-description">記録情報未登録</p>
+          </div>
+        </article>
+
+        <article class="archive-card">
+          <div class="archive-placeholder">NO IMAGE REGISTERED</div>
+          <div class="archive-card-info">
+            <p class="archive-id">ORIGINAL / 002</p>
+            <h3>UNTITLED RECORD</h3>
+            <p class="archive-description">記録情報未登録</p>
+          </div>
+        </article>
+
+        <article class="archive-card">
+          <div class="archive-placeholder">NO IMAGE REGISTERED</div>
+          <div class="archive-card-info">
+            <p class="archive-id">ORIGINAL / 003</p>
+            <h3>UNTITLED RECORD</h3>
+            <p class="archive-description">記録情報未登録</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FANWORKS -->
+    <section class="archive-section">
+
+      <h2 class="archive-section-title">
+        <span>02</span> FANWORK RECORDS
+      </h2>
+
+      <p class="archive-section-description">
+        ファンアート・二次創作の記録。
+      </p>
+
+      <div class="archive-grid">
+
+        <article class="archive-card">
+          <div class="archive-placeholder">NO IMAGE REGISTERED</div>
+          <div class="archive-card-info">
+            <p class="archive-id">FANWORK / 001</p>
+            <h3>UNTITLED RECORD</h3>
+            <p class="archive-description">記録情報未登録</p>
+          </div>
+        </article>
+
+        <article class="archive-card">
+          <div class="archive-placeholder">NO IMAGE REGISTERED</div>
+          <div class="archive-card-info">
+            <p class="archive-id">FANWORK / 002</p>
+            <h3>UNTITLED RECORD</h3>
+            <p class="archive-description">記録情報未登録</p>
+          </div>
+        </article>
+
+        <article class="archive-card">
+          <div class="archive-placeholder">NO IMAGE REGISTERED</div>
+          <div class="archive-card-info">
+            <p class="archive-id">FANWORK / 003</p>
+            <h3>UNTITLED RECORD</h3>
+            <p class="archive-description">記録情報未登録</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="archive-footer">
+      PROJECT EDEN:e<br>
+      END OF RECORD
+    </footer>
+
+  </main>
+</body>
+</html>
+
