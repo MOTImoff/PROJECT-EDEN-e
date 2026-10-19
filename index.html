@@ -404,10 +404,41 @@
   animation: eden-glow 3s ease-in-out infinite alternate;
 }
 
+
+/* 光のゆらぎ */
 @keyframes eden-glow {
-  from { opacity: 0.65; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
 }
+
+/* ふわふわ浮かぶ光の粒 */
+#eden-opening .eden-particle {
+  position: absolute;
+  z-index: 1;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(91, 166, 157, 0.55);
+  box-shadow: 0 0 12px 3px rgba(125, 194, 184, 0.2);
+  pointer-events: none;
+  animation: eden-particle-float 3s ease-in-out infinite alternate;
+}
+
+@keyframes eden-particle-float {
+  from {
+    transform: translateY(12px);
+    opacity: 0.15;
+  }
+  to {
+    transform: translateY(-18px);
+    opacity: 0.8;
+  }
+}
+
 
 
     #eden-opening.is-closing {
@@ -1215,111 +1246,85 @@
 
     }
 
+  
     // 起動画面
-
     (() => {
-
       const opening = document.getElementById('eden-opening');
-
       const message = document.getElementById('opening-message');
-
       const skip = document.getElementById('opening-skip');
-
       const mainVisual = document.querySelector('.hero-image');
-
       const storageKey = 'eden-opening-seen';
 
       if (!opening || !message || !skip) return;
 
       // 同じタブですでに起動演出を見ている場合は省略
-
       try {
-
         if (sessionStorage.getItem(storageKey) === 'true') {
-
           opening.remove();
-
           return;
-
         }
-
         sessionStorage.setItem(storageKey, 'true');
-
       } catch (error) {
-
         // 保存できない環境でも演出は続ける
+      }
 
+      // ふわふわ浮かぶ光の粒を追加
+      for (let i = 0; i < 18; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'eden-particle';
+        particle.setAttribute('aria-hidden', 'true');
+        particle.style.left = `${8 + Math.random() * 84}%`;
+        particle.style.top = `${10 + Math.random() * 80}%`;
+        particle.style.animationDelay = `${Math.random() * 3}s`;
+        particle.style.animationDuration = `${2.5 + Math.random() * 2}s`;
+        opening.appendChild(particle);
       }
 
       // メインビジュアルを起動中だけ隠す
-
       document.body.classList.add('eden-opening-active');
 
       const originalText = message.textContent.trim();
-
       message.textContent = '';
 
       // メッセージを一文字ずつ表示
-
       [...originalText].forEach((char, index) => {
-
         const span = document.createElement('span');
-
         span.className = 'opening-char';
-
         span.textContent = char;
-
         span.style.animationDelay = `${0.7 + index * 0.09}s`;
-
         message.appendChild(span);
-
       });
 
       let closed = false;
-
       let timer;
 
       function closeOpening() {
-
         if (closed) return;
-
         closed = true;
-
         window.clearTimeout(timer);
 
-        // 起動画面をフェードアウト
-
+        // 挨拶とLoadingをまとめてフェードアウト
         opening.classList.add('is-closing');
 
-        // メインビジュアルもふわっと表示
-
+        // メインビジュアルをふわっと表示
         document.body.classList.remove('eden-opening-active');
-
         if (mainVisual) {
-
           mainVisual.classList.add('eden-main-reveal');
-
         }
 
         window.setTimeout(() => {
-
           opening.remove();
-
         }, 1300);
-
       }
 
       // 文字の表示が終わってから閉じる
-
-      const duration = 700 + [...originalText].length * 90 + 1300;
-
+      const duration = 700 + [...originalText].length * 90 + 1800;
       timer = window.setTimeout(closeOpening, duration);
 
       // SKIPボタン
-
       skip.addEventListener('click', closeOpening);
-
     })();
+
 
   </script>
 
